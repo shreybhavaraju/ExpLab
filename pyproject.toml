@@ -1,0 +1,19 @@
+[project]
+name = "explab"
+version = "0.1.0"
+description = "Experiment readout engine for the Criteo uplift dataset"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "pandas",
+    "pyarrow",
+    "duckdb",
+]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["explab"]

@@ -1,0 +1,11 @@
+# data is ~300MB zipped, download it with `python -m explab.load`
+data/
+
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
