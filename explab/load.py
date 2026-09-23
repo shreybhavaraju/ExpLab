@@ -51,6 +51,24 @@ def to_parquet(force=False):
     return PARQUET_PATH
 
 
+def connect(path=PARQUET_PATH):
+    con = duckdb.connect()
+    con.execute(f"create view criteo as select * from read_parquet('{path}')")
+    return con
+
+
+def summary(con):
+    print(con.sql('select count(*) as n_rows, avg(treatment) as treatment_share from criteo'))
+    print(con.sql("""
+        select treatment, count(*) as n, avg(visit) as visit_rate,
+               avg(conversion) as conversion_rate, avg(exposure) as exposure_rate
+        from criteo
+        group by treatment
+        order by treatment
+    """))
+
+
 if __name__ == '__main__':
     download()
     to_parquet()
+    summary(connect())
