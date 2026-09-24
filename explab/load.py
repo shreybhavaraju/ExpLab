@@ -6,11 +6,14 @@ import urllib.request
 from pathlib import Path
 
 import duckdb
+import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / 'data'
 CSV_PATH = DATA_DIR / 'criteo-research-uplift-v2.1.csv.gz'
 PARQUET_PATH = DATA_DIR / 'criteo.parquet'
+SQL_DIR = ROOT / 'sql'
+SQL_FILES = ['metrics.sql']
 
 URL = 'https://huggingface.co/datasets/criteo/criteo-uplift/resolve/main/criteo-research-uplift-v2.1.csv.gz'
 SHA256 = '2716e1bf0fd157a93b5bf86924d9088419dfbac2022c6cd90030220634f616dc'
@@ -51,9 +54,16 @@ def to_parquet(force=False):
     return PARQUET_PATH
 
 
-def connect(path=PARQUET_PATH):
+def connect(source=PARQUET_PATH):
+    """DuckDB connection with the data as a `criteo` view plus the metric views from sql/.
+    `source` can also be a DataFrame (the tests use a small fake one)."""
     con = duckdb.connect()
-    con.execute(f"create view criteo as select * from read_parquet('{path}')")
+    if isinstance(source, pd.DataFrame):
+        con.register('criteo', source)
+    else:
+        con.execute(f"create view criteo as select * from read_parquet('{source}')")
+    for name in SQL_FILES:
+        con.execute((SQL_DIR / name).read_text())
     return con
 
 
@@ -66,6 +76,8 @@ def summary(con):
         group by treatment
         order by treatment
     """))
+    print(con.sql('select * from conversions_per_visit order by treatment'))
+    print(con.sql('select * from exposed_vs_control order by grp'))
 
 
 if __name__ == '__main__':
