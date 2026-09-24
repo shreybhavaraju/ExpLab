@@ -13,7 +13,7 @@ DATA_DIR = ROOT / 'data'
 CSV_PATH = DATA_DIR / 'criteo-research-uplift-v2.1.csv.gz'
 PARQUET_PATH = DATA_DIR / 'criteo.parquet'
 SQL_DIR = ROOT / 'sql'
-SQL_FILES = ['metrics.sql']
+SQL_FILES = ['metrics.sql', 'segments.sql']
 
 URL = 'https://huggingface.co/datasets/criteo/criteo-uplift/resolve/main/criteo-research-uplift-v2.1.csv.gz'
 SHA256 = '2716e1bf0fd157a93b5bf86924d9088419dfbac2022c6cd90030220634f616dc'
