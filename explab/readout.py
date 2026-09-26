@@ -1,6 +1,6 @@
 # Effect estimates for one metric: absolute difference, relative lift, CIs.
 # Everything works off (estimate, variance of the estimate) for each arm, so the same
-# functions handle plain means and anything else that can give an estimate + variance.
+# functions handle plain means, ratio metrics, and later the CUPAC-adjusted means.
 
 from dataclasses import dataclass
 
@@ -36,16 +36,63 @@ def binary_mean_and_var(successes, n):
     return p, p * (1 - p) / (n - 1)
 
 
+def ratio_from_sums(n, sx, sy, sxx, syy, sxy):
+    """Ratio metric R = sum(x) / sum(y), e.g. conversions per visit, where the randomized
+    unit is the user and x, y are per-user totals. Delta method again:
+
+        R = mx / my,   Var(R_hat) ~ (Var(x) - 2 R Cov(x, y) + R^2 Var(y)) / (n my^2)
+
+    with per-user variances. Treating every visit as its own independent unit would ignore
+    that visits from the same user are correlated. Takes sums so it works on the SQL views.
+    """
+    mx, my = sx / n, sy / n
+    r = mx / my
+    var_x = (sxx - n * mx**2) / (n - 1)
+    var_y = (syy - n * my**2) / (n - 1)
+    cov = (sxy - n * mx * my) / (n - 1)
+    return r, (var_x - 2 * r * cov + r**2 * var_y) / (n * my**2)
+
+
+def ratio_and_var(num, den):
+    x = np.asarray(num, dtype=float)
+    y = np.asarray(den, dtype=float)
+    return ratio_from_sums(len(x), x.sum(), y.sum(), (x * x).sum(), (y * y).sum(), (x * y).sum())
+
+
 def diff(est_t, var_t, est_c, var_c, alpha=0.05):
     """Treatment minus control. Arms are independent so the variances just add."""
     return normal_estimate(est_t - est_c, np.sqrt(var_t + var_c), alpha)
 
 
+def lift(est_t, var_t, est_c, var_c, alpha=0.05):
+    """Relative lift L = est_t / est_c - 1, with a delta method CI.
+
+    L = g(a, b) = a / b - 1 where a, b are the treatment and control estimates. First order
+    Taylor expansion around the true values:
+
+        L_hat - L ~ dg/da (a_hat - a) + dg/db (b_hat - b),   dg/da = 1/b,  dg/db = -a/b^2
+
+    a_hat and b_hat are independent (separate users), so
+
+        Var(L_hat) ~ Var(a_hat) / b^2 + a^2 Var(b_hat) / b^4
+
+    and we plug in the estimates for a and b. The shortcut of dividing the diff CI by the
+    control mean treats that denominator as a known constant, so the control noise gets
+    weight 1 instead of (a/b)^2. With a big lift and a small control arm (both true here)
+    that's a real difference: on visits the shortcut CI was ~20% too narrow.
+    """
+    value = est_t / est_c - 1
+    var = var_t / est_c**2 + est_t**2 * var_c / est_c**4
+    return normal_estimate(value, np.sqrt(var), alpha)
+
+
 def compare(est_t, var_t, est_c, var_c, alpha=0.05):
-    d = diff(est_t, var_t, est_c, var_c, alpha)
-    # relative lift, CI is just the diff CI scaled by the control mean for now
-    lift = Estimate(d.value / est_c, d.se / est_c, d.ci_low / est_c, d.ci_high / est_c, d.p_value)
-    return {'treatment': est_t, 'control': est_c, 'diff': d, 'lift': lift}
+    return {
+        'treatment': est_t,
+        'control': est_c,
+        'diff': diff(est_t, var_t, est_c, var_c, alpha),
+        'lift': lift(est_t, var_t, est_c, var_c, alpha),
+    }
 
 
 def readout(y_t, y_c, alpha=0.05):
