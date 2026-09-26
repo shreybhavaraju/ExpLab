@@ -98,3 +98,41 @@ def compare(est_t, var_t, est_c, var_c, alpha=0.05):
 def readout(y_t, y_c, alpha=0.05):
     """Readout for a per-user metric given the raw arrays."""
     return compare(*mean_and_var(y_t), *mean_and_var(y_c), alpha=alpha)
+
+
+def bootstrap(t_cols, c_cols, stat, n_boot=1000, seed=0):
+    """Resample users with replacement within each arm and recompute stat(t_cols, c_cols).
+
+    t_cols / c_cols are lists of per-user arrays for each arm, e.g. [visit] for a mean or
+    [conversion, visit] for a ratio. stat can return one number or an array of them, so one
+    set of resamples can be shared across a few metrics.
+    """
+    rng = np.random.default_rng(seed)
+    n_t, n_c = len(t_cols[0]), len(c_cols[0])
+    out = []
+    for _ in range(n_boot):
+        it = rng.integers(0, n_t, n_t)
+        ic = rng.integers(0, n_c, n_c)
+        out.append(stat([a[it] for a in t_cols], [a[ic] for a in c_cols]))
+    return np.array(out)
+
+
+def percentile_ci(boot, alpha=0.05):
+    return np.quantile(boot, [alpha / 2, 1 - alpha / 2], axis=0)
+
+
+# stats for bootstrap()
+def mean_diff(t, c):
+    return t[0].mean() - c[0].mean()
+
+
+def mean_lift(t, c):
+    return t[0].mean() / c[0].mean() - 1
+
+
+def ratio_diff(t, c):
+    return t[0].sum() / t[1].sum() - c[0].sum() / c[1].sum()
+
+
+def ratio_lift(t, c):
+    return (t[0].sum() / t[1].sum()) / (c[0].sum() / c[1].sum()) - 1
