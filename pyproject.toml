@@ -10,6 +10,7 @@ dependencies = [
     "pandas",
     "pyarrow",
     "duckdb",
+    "matplotlib",
 ]
 
 [project.optional-dependencies]

@@ -1,0 +1,26 @@
+{
+  "srm": {
+    "share": 0.8500001287591226,
+    "expected_share": 0.85,
+    "chi2": 1.817775848947767e-06,
+    "p_value": 0.9989242531217909,
+    "passed": true
+  },
+  "srm_2pct_control_dropped": {
+    "share": 0.8525732308340701,
+    "expected_share": 0.85,
+    "chi2": 723.817542099753,
+    "p_value": 1.9794536771532808e-159,
+    "passed": false
+  },
+  "aa": {
+    "visit": {
+      "fpr": 0.047,
+      "ks_p": 0.2406052411128422
+    },
+    "conversion": {
+      "fpr": 0.048,
+      "ks_p": 0.4236124952817194
+    }
+  }
+}

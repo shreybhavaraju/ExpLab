@@ -1,8 +1,11 @@
 # Trust checks, i.e. can the readout be believed at all.
 #   srm_test  - did the users split into arms the way the design says they should?
+#   aa_test   - does the readout give ~5% false positives when there's nothing to find?
 
 import numpy as np
 from scipy import stats
+
+from explab.readout import readout
 
 SRM_ALPHA = 0.001
 
@@ -25,3 +28,22 @@ def srm_test(n_t, n_c, expected_share=0.85, alpha=SRM_ALPHA):
         'passed': bool(p >= alpha),
     }
 
+
+def aa_test(y, n_sims=1000, share=0.5, seed=0):
+    """A/A test: randomly split one group (control) into two fake arms over and over and run
+    the normal readout on each split. There is no real effect, so the p-values should be
+    uniform and ~5% of splits should come out 'significant' at 0.05. Returns the p-values."""
+    rng = np.random.default_rng(seed)
+    y = np.asarray(y)
+    pvals = np.empty(n_sims)
+    for i in range(n_sims):
+        fake_t = rng.random(len(y)) < share
+        pvals[i] = readout(y[fake_t], y[~fake_t])['diff'].p_value
+    return pvals
+
+
+def aa_summary(pvals, alpha=0.05):
+    return {
+        'fpr': float(np.mean(pvals < alpha)),
+        'ks_p': float(stats.kstest(pvals, 'uniform').pvalue),  # flat histogram <=> uniform
+    }

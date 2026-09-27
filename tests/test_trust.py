@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from scipy import stats
 
-from explab.trust import srm_test
+from explab.trust import aa_summary, aa_test, srm_test
 
 
 def test_srm_matches_scipy():
@@ -42,3 +42,26 @@ def test_srm_uses_the_design_ratio():
     assert srm_test(85_000, 15_000, expected_share=0.85)['passed']
     assert not srm_test(85_000, 15_000, expected_share=0.5)['passed']
 
+
+def test_aa_false_positive_rate():
+    # 0/1 metric, no real effect. 500 splits -> SE of the rate ~1pt, so 2.5% to 7.5% is a wide band
+    rng = np.random.default_rng(3)
+    y = (rng.random(20_000) < 0.04).astype(np.int8)
+    p = aa_test(y, n_sims=500, seed=4)
+    s = aa_summary(p)
+    assert 0.025 < s['fpr'] < 0.075
+    assert s['ks_p'] > 0.01
+
+
+def test_aa_catches_a_broken_readout():
+    # sanity check that the A/A test can actually fail: feed it a fake readout with a CI
+    # that's way too narrow and the false positive rate should blow up
+    rng = np.random.default_rng(5)
+    y = rng.normal(size=5000)
+    pvals = []
+    for _ in range(300):
+        t = rng.random(len(y)) < 0.5
+        d = y[t].mean() - y[~t].mean()
+        se = np.sqrt(y.var() / len(y))  # pretends the whole sample is in each arm
+        pvals.append(2 * stats.norm.sf(abs(d / se)))
+    assert aa_summary(np.array(pvals))['fpr'] > 0.15
