@@ -2,7 +2,8 @@
 #   - SRM against the designed 85/15 split
 #   - SRM again after randomly dropping 2% of control (validation, this one should fail)
 #   - A/A test: 1,000 random splits of the control group, for visits and conversions
-# Writes results/trust.json, results/aa_pvalues.csv and figures/aa_pvalues.png.
+#   - balance: SRM inside the f0 / f2 decile bins (pre-treatment features)
+# Writes results/trust.json, results/aa_pvalues.csv, figures/aa_pvalues.png and figures/balance.png.
 
 import json
 
@@ -12,7 +13,7 @@ import pandas as pd
 
 from explab.load import ROOT, connect
 from explab.plots import BLUE, GRAY, save, setup
-from explab.trust import aa_summary, aa_test, srm_test
+from explab.trust import aa_summary, aa_test, balance_test, srm_test
 
 RESULTS = ROOT / 'results'
 
@@ -36,6 +37,44 @@ def plot_aa(pvals, fprs):
     save(fig, 'aa_pvalues.png')
 
 
+def bin_table(con, feature):
+    return con.sql(f"""
+        select {feature}_bin as bin,
+               sum(n) filter (where treatment = 1) as n_t,
+               sum(n) filter (where treatment = 0) as n_c,
+               sum(visits) filter (where treatment = 0) / sum(n) filter (where treatment = 0) as ctrl_visit_rate
+        from segment_stats
+        group by 1
+        order by 1
+    """).df()
+
+
+def plot_balance(tables, overall_share):
+    setup()
+    fig, axes = plt.subplots(1, 2, figsize=(9, 3.6), sharey=True)
+    for ax, (feature, df) in zip(axes, tables.items()):
+        n = df.n_t + df.n_c
+        share = df.n_t / n
+        # 99.9% interval for the share if assignment really were 85/15 everywhere
+        half = 3.29 * np.sqrt(0.85 * 0.15 / n)
+        x = np.arange(len(df))
+        ax.fill_between(x, 0.85 - half, 0.85 + half, color=GRAY, alpha=0.15, linewidth=0)
+        ax.axhline(0.85, color=GRAY, linestyle='--', linewidth=1)
+        ax.plot(x, share, 'o', color=BLUE, markersize=7)
+        ax.set_xticks(x, df.bin.astype(int))
+        ax.set_xlabel(f'{feature} decile bin')
+        ax.set_title(f'{feature}')
+        ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda v, _: f'{v:.1%}'))
+    axes[0].set_ylabel('treatment share')
+    axes[0].text(0, 0.8515, 'designed 85%, gray band = 99.9% range if it held', color=GRAY, fontsize=8,
+                 va='bottom')
+    fig.suptitle('Treatment share by feature decile', x=0.01, ha='left', fontsize=12, fontweight='bold')
+    fig.tight_layout(rect=(0, 0, 1, 0.94))
+    fig.text(0.01, 0.89, f'overall share is {overall_share:.4%} and passes SRM, but inside the bins it '
+             'clearly depends on the features', color=GRAY, fontsize=9)
+    save(fig, 'balance.png')
+
+
 def main():
     con = connect()
     sizes = con.sql('select * from arm_sizes order by treatment').df()
@@ -56,11 +95,24 @@ def main():
         aa[metric] = aa_summary(p)
         print('aa', metric, aa[metric])
 
+    # overall SRM passes almost too well (share = 0.8500001). check inside segments
+    tables, balance = {}, {}
+    for feature in ['f0', 'f2']:
+        df = bin_table(con, feature)
+        tables[feature] = df
+        balance[feature] = balance_test(df.n_t.values, df.n_c.values)
+        balance[feature]['bins'] = df.bin.astype(int).tolist()
+        balance[feature]['ctrl_visit_rate'] = df.ctrl_visit_rate.tolist()
+        print('balance', feature, {k: balance[feature][k] for k in ['chi2', 'p_value', 'passed']})
+        print(df.assign(share=df.n_t / (df.n_t + df.n_c)).round(4).to_string(index=False))
+
     plot_aa(pvals, {m: aa[m]['fpr'] for m in aa})
+    plot_balance(tables, srm['share'])
     RESULTS.mkdir(exist_ok=True)
     pd.DataFrame(pvals).to_csv(RESULTS / 'aa_pvalues.csv', index=False)
     with open(RESULTS / 'trust.json', 'w') as f:
-        json.dump({'srm': srm, 'srm_2pct_control_dropped': srm_dropped, 'aa': aa}, f, indent=2)
+        json.dump({'srm': srm, 'srm_2pct_control_dropped': srm_dropped, 'aa': aa, 'balance': balance},
+                  f, indent=2)
 
 
 if __name__ == '__main__':

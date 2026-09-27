@@ -1,6 +1,7 @@
 # Trust checks, i.e. can the readout be believed at all.
-#   srm_test  - did the users split into arms the way the design says they should?
-#   aa_test   - does the readout give ~5% false positives when there's nothing to find?
+#   srm_test      - did the users split into arms the way the design says they should?
+#   balance_test  - same idea inside bins of a pre-treatment feature
+#   aa_test       - does the readout give ~5% false positives when there's nothing to find?
 
 import numpy as np
 from scipy import stats
@@ -24,6 +25,25 @@ def srm_test(n_t, n_c, expected_share=0.85, alpha=SRM_ALPHA):
         'share': n_t / n,
         'expected_share': expected_share,
         'chi2': chi2,
+        'p_value': p,
+        'passed': bool(p >= alpha),
+    }
+
+
+def balance_test(n_t, n_c, alpha=SRM_ALPHA):
+    """SRM inside segments. n_t, n_c are the arm sizes in each bin of a pre-treatment feature.
+    With real randomization the treatment share is the same in every bin (whatever the overall
+    share is), so this is a chi-square test of independence between arm and bin, dof = bins - 1.
+    The overall SRM check only looks at the totals, so it can pass while this one fails."""
+    table = np.array([n_t, n_c], dtype=float)
+    expected = table.sum(axis=1, keepdims=True) * table.sum(axis=0, keepdims=True) / table.sum()
+    chi2 = ((table - expected) ** 2 / expected).sum()
+    dof = table.shape[1] - 1
+    p = stats.chi2.sf(chi2, dof)
+    return {
+        'shares': (table[0] / table.sum(axis=0)).tolist(),
+        'chi2': chi2,
+        'dof': dof,
         'p_value': p,
         'passed': bool(p >= alpha),
     }

@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from scipy import stats
 
-from explab.trust import aa_summary, aa_test, srm_test
+from explab.trust import aa_summary, aa_test, balance_test, srm_test
 
 
 def test_srm_matches_scipy():
@@ -41,6 +41,35 @@ def test_srm_uses_the_design_ratio():
     # an 85/15 split is fine against 0.85 but obviously fails against 50/50
     assert srm_test(85_000, 15_000, expected_share=0.85)['passed']
     assert not srm_test(85_000, 15_000, expected_share=0.5)['passed']
+
+
+def test_balance_matches_scipy():
+    n_t = np.array([3000, 4100, 2500, 900])
+    n_c = np.array([520, 700, 480, 140])
+    res = balance_test(n_t, n_c)
+    chi2, p, dof, _ = stats.chi2_contingency(np.array([n_t, n_c]), correction=False)
+    assert res['chi2'] == pytest.approx(chi2, abs=1e-6)
+    assert res['p_value'] == pytest.approx(p, abs=1e-6)
+    assert res['dof'] == dof
+
+
+def test_balance_passes_when_assignment_is_random():
+    rng = np.random.default_rng(6)
+    bins = rng.integers(0, 10, 2_000_000)
+    t = rng.random(len(bins)) < 0.85
+    res = balance_test(np.bincount(bins[t]), np.bincount(bins[~t]))
+    assert res['passed']
+
+
+def test_balance_fails_when_share_depends_on_the_feature():
+    # overall share still ~85%, but some bins get 87% and others 83%. the plain SRM check
+    # passes on this, the balance check shouldn't
+    rng = np.random.default_rng(7)
+    bins = rng.integers(0, 10, 2_000_000)
+    share = np.where(bins < 5, 0.87, 0.83)
+    t = rng.random(len(bins)) < share
+    assert srm_test(t.sum(), (~t).sum())['passed']
+    assert not balance_test(np.bincount(bins[t]), np.bincount(bins[~t]))['passed']
 
 
 def test_aa_false_positive_rate():
