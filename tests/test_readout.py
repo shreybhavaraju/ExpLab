@@ -4,7 +4,8 @@ from statsmodels.stats._delta_method import NonlinearDeltaCov
 from statsmodels.stats.weightstats import CompareMeans, DescrStatsW
 
 from explab.readout import (binary_mean_and_var, bootstrap, compare, mean_and_var, mean_diff,
-                            mean_lift, percentile_ci, ratio_and_var, ratio_from_sums, readout)
+                            mean_lift, percentile_ci, ratio_and_var, ratio_from_sums, readout,
+                            stratified)
 
 
 @pytest.fixture
@@ -103,3 +104,25 @@ def test_bootstrap_agrees_with_normal_ci():
     assert abs(d_hi - r['diff'].ci_high) < 0.1 * d_width
     assert abs(l_lo - r['lift'].ci_low) < 0.1 * l_width
     assert abs(l_hi - r['lift'].ci_high) < 0.1 * l_width
+
+
+def test_stratified_fixes_confounded_split():
+    # 3 strata with different base rates, and the treatment share is higher in the high-rate
+    # stratum. true effect is +0.01 everywhere. raw diff is biased up, stratified isn't.
+    rng = np.random.default_rng(5)
+    n = np.array([300_000, 300_000, 300_000])
+    base = np.array([0.01, 0.05, 0.15])
+    share = np.array([0.84, 0.85, 0.87])
+    raw, strat, covered = [], [], []
+    for _ in range(300):
+        n_t = rng.binomial(n, share)
+        n_c = n - n_t
+        k_t = rng.binomial(n_t, base + 0.01)
+        k_c = rng.binomial(n_c, base)
+        raw.append(k_t.sum() / n_t.sum() - k_c.sum() / n_c.sum())
+        d = compare(*stratified(k_t, n_t, k_c, n_c))['diff']
+        strat.append(d.value)
+        covered.append(d.ci_low < 0.01 < d.ci_high)
+    assert np.mean(raw) > 0.014  # expected raw diff is ~0.0159 here, i.e. +0.006 of bias
+    assert np.mean(strat) == pytest.approx(0.01, abs=2e-4)
+    assert 0.92 < np.mean(covered) < 0.98  # 300 sims -> SE ~1.3pt

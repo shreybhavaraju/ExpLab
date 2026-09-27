@@ -59,6 +59,20 @@ def ratio_and_var(num, den):
     return ratio_from_sums(len(x), x.sum(), y.sum(), (x * x).sum(), (y * y).sum(), (x * y).sum())
 
 
+def stratified(k_t, n_t, k_c, n_c):
+    """Post-stratified arm means for a 0/1 metric. k_*, n_* are arrays with one entry per stratum.
+    Each arm's mean is the stratum means weighted by the stratum's share of all users, so both
+    arms get the same mix of strata. If the treatment share differs between strata (it does on
+    Criteo) the raw difference in means partly measures 'treated users sit in better strata';
+    this removes that part, as far as the strata capture it.
+    Returns est/var for each arm in the form compare() takes."""
+    k_t, n_t, k_c, n_c = (np.asarray(a, dtype=float) for a in (k_t, n_t, k_c, n_c))
+    w = (n_t + n_c) / (n_t + n_c).sum()
+    p_t, v_t = binary_mean_and_var(k_t, n_t)
+    p_c, v_c = binary_mean_and_var(k_c, n_c)
+    return (w * p_t).sum(), (w**2 * v_t).sum(), (w * p_c).sum(), (w**2 * v_c).sum()
+
+
 def diff(est_t, var_t, est_c, var_c, alpha=0.05):
     """Treatment minus control. Arms are independent so the variances just add."""
     return normal_estimate(est_t - est_c, np.sqrt(var_t + var_c), alpha)

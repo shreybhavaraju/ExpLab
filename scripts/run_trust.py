@@ -2,10 +2,12 @@
 #   - SRM against the designed 85/15 split
 #   - SRM again after randomly dropping 2% of control (validation, this one should fail)
 #   - A/A test: 1,000 random splits of the control group, for visits and conversions
-#   - balance: SRM inside the f0 / f2 decile bins (pre-treatment features)
+#   - balance: SRM inside the f0 / f2 decile bins (pre-treatment features), and how much the
+#     imbalance moves the estimate (raw vs post-stratified on the f0 x f2 cells)
 # Writes results/trust.json, results/aa_pvalues.csv, figures/aa_pvalues.png and figures/balance.png.
 
 import json
+from dataclasses import asdict
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -13,6 +15,7 @@ import pandas as pd
 
 from explab.load import ROOT, connect
 from explab.plots import BLUE, GRAY, save, setup
+from explab.readout import binary_mean_and_var, compare, stratified
 from explab.trust import aa_summary, aa_test, balance_test, srm_test
 
 RESULTS = ROOT / 'results'
@@ -47,6 +50,22 @@ def bin_table(con, feature):
         group by 1
         order by 1
     """).df()
+
+
+def imbalance_impact(con):
+    cells = con.sql('select * from segment_stats').df()
+    t = cells[cells.treatment == 1].set_index(['f0_bin', 'f2_bin'])
+    c = cells[cells.treatment == 0].set_index(['f0_bin', 'f2_bin']).loc[t.index]
+    out = {}
+    for metric, col in [('visit_rate', 'visits'), ('conversion_rate', 'conversions')]:
+        raw = compare(*binary_mean_and_var(t[col].sum(), t.n.sum()),
+                      *binary_mean_and_var(c[col].sum(), c.n.sum()))
+        strat = compare(*stratified(t[col], t.n, c[col], c.n))
+        out[metric] = {name: {'diff': asdict(r['diff']), 'lift': asdict(r['lift'])}
+                       for name, r in [('raw', raw), ('stratified_f0_f2', strat)]}
+        print(f"{metric}: raw diff {raw['diff'].value:+.5f} (lift {raw['lift'].value:+.1%}), "
+              f"stratified diff {strat['diff'].value:+.5f} (lift {strat['lift'].value:+.1%})")
+    return out
 
 
 def plot_balance(tables, overall_share):
@@ -106,13 +125,15 @@ def main():
         print('balance', feature, {k: balance[feature][k] for k in ['chi2', 'p_value', 'passed']})
         print(df.assign(share=df.n_t / (df.n_t + df.n_c)).round(4).to_string(index=False))
 
+    impact = imbalance_impact(con)
+
     plot_aa(pvals, {m: aa[m]['fpr'] for m in aa})
     plot_balance(tables, srm['share'])
     RESULTS.mkdir(exist_ok=True)
     pd.DataFrame(pvals).to_csv(RESULTS / 'aa_pvalues.csv', index=False)
     with open(RESULTS / 'trust.json', 'w') as f:
-        json.dump({'srm': srm, 'srm_2pct_control_dropped': srm_dropped, 'aa': aa, 'balance': balance},
-                  f, indent=2)
+        json.dump({'srm': srm, 'srm_2pct_control_dropped': srm_dropped, 'aa': aa, 'balance': balance,
+                   'imbalance_impact': impact}, f, indent=2)
 
 
 if __name__ == '__main__':
