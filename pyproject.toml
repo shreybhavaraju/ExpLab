@@ -11,6 +11,8 @@ dependencies = [
     "pyarrow",
     "duckdb",
     "matplotlib",
+    "scikit-learn",
+    "lightgbm",
 ]
 
 [project.optional-dependencies]
