@@ -82,6 +82,16 @@ def test_aa_false_positive_rate():
     assert s['ks_p'] > 0.01
 
 
+def test_aa_with_cupac_covariate():
+    # covariate that predicts y well but has nothing to do with the fake split -> still ~5%
+    rng = np.random.default_rng(8)
+    x = rng.random(20_000) * 0.1
+    y = (rng.random(20_000) < x).astype(np.int8)
+    s = aa_summary(aa_test(y, n_sims=500, seed=9, x=x))
+    assert 0.025 < s['fpr'] < 0.075
+    assert s['ks_p'] > 0.01
+
+
 def test_aa_catches_a_broken_readout():
     # sanity check that the A/A test can actually fail: feed it a fake readout with a CI
     # that's way too narrow and the false positive rate should blow up
