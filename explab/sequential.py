@@ -1,5 +1,5 @@
 # Peeking: what happens to the false positive rate if you keep checking the readout as users
-# come in, and the O'Brien-Fleming fix for a planned number of looks.
+# come in, and two ways to fix it (O'Brien-Fleming for planned looks, mSPRT for any looks).
 # Criteo has no timestamps, so arrival order is simulated by shuffling users.
 
 import numpy as np
@@ -60,6 +60,35 @@ def obf_boundaries(n_looks, alpha=0.05, n_paths=200_000, seed=0):
 
 def obf_crossings(z, bounds):
     return np.abs(z) > bounds
+
+
+def msprt_lr(diff, var, tau2):
+    """Mixture SPRT likelihood ratio (Johari et al. 2017, 'always valid p-values'). Treat the
+    estimate as diff ~ N(theta, var) and average the likelihood ratio over theta ~ N(0, tau2):
+
+        Lambda = N(diff; 0, var + tau2) / N(diff; 0, var)
+               = sqrt(var / (var + tau2)) exp(tau2 diff^2 / (2 var (var + tau2)))
+
+    i.e. a Bayes factor. Under the null it's a martingale, so by Ville's inequality
+    P(Lambda ever >= 1 / alpha) <= alpha no matter how often you look. That bound covers
+    looking after every user, so with only 20 looks it's conservative. Uses the normal approx
+    with the plug-in variance, which is fine for 0/1 data at these sizes.
+    """
+    # on a real effect with millions of users the exponent can be in the thousands and exp()
+    # overflows to inf, which still gives the right answer (crosses, p = 0), so no warning
+    with np.errstate(over='ignore'):
+        return np.sqrt(var / (var + tau2)) * np.exp(tau2 * diff**2 / (2 * var * (var + tau2)))
+
+
+def msprt_crossings(diff, var, tau2, alpha=0.05):
+    return msprt_lr(diff, var, tau2) >= 1 / alpha
+
+
+def always_valid_p(diff, var, tau2):
+    """p_k = min(1, 1 / Lambda_k), carried forward as a running min so it never goes back up.
+    Stopping the first time p_k <= alpha is the same as msprt_crossings."""
+    p = np.minimum(1, 1 / msprt_lr(diff, var, tau2))
+    return np.minimum.accumulate(p, axis=-1)
 
 
 def cumulative_fpr(crossings):

@@ -1,8 +1,9 @@
 import numpy as np
 import pytest
+from scipy import stats
 
-from explab.sequential import (cumulative_fpr, naive_crossings, obf_boundaries, obf_crossings,
-                               peeking_sim)
+from explab.sequential import (always_valid_p, cumulative_fpr, msprt_crossings, msprt_lr,
+                               naive_crossings, obf_boundaries, obf_crossings, peeking_sim)
 
 
 @pytest.fixture(scope='module')
@@ -23,15 +24,42 @@ def test_obf_constant_matches_jennison_turnbull():
     assert b == pytest.approx(b[-1] * np.sqrt(5 / np.arange(1, 6)), abs=1e-12)
 
 
+def test_msprt_lr_is_ratio_of_normal_densities():
+    rng = np.random.default_rng(2)
+    var = rng.uniform(0.5, 2.0, 50)
+    d = rng.normal(0, 2 * np.sqrt(var))
+    tau2 = 0.7
+    expected = (stats.norm.pdf(d, 0, np.sqrt(var + tau2)) / stats.norm.pdf(d, 0, np.sqrt(var)))
+    assert msprt_lr(d, var, tau2) == pytest.approx(expected, rel=1e-9)
+
+
 def test_peeking_false_positive_rates(aa):
     y, sim = aa
+    # tau = 20% of the mean is ~3 SEs of the final diff here, in the same range as on the real data
+    tau2 = (0.2 * y.mean()) ** 2
     naive = cumulative_fpr(naive_crossings(sim['z']))
     obf = cumulative_fpr(obf_crossings(sim['z'], obf_boundaries(20)))
+    msprt = cumulative_fpr(msprt_crossings(sim['diff'], sim['var'], tau2))
     # same bands as the peeking row of validation/pass_conditions.md. 1,000 sims -> SE of a
     # ~5% rate is ~0.7pt, so 3.5% to 6.5% is about +-2 SE (this seed gives 5.5%)
     assert naive[0] == pytest.approx(0.05, abs=0.025)  # a single look is fine, ~3.5 SE
     assert naive[-1] > 0.10
     assert 0.035 <= obf[-1] <= 0.065
+    assert msprt[-1] <= 0.065
+
+
+def test_always_valid_p(aa):
+    y, sim = aa
+    tau2 = (0.2 * y.mean()) ** 2
+    p = always_valid_p(sim['diff'], sim['var'], tau2)
+    assert np.all(np.diff(p, axis=1) <= 0)
+    assert np.all((p > 0) & (p <= 1))
+    # a huge real effect overflows Lambda to inf, which should just mean p = 0
+    with np.errstate(all='raise'):
+        assert always_valid_p(np.array([0.01]), np.array([1e-8]), 1e-6)[0] == 0
+    # p <= alpha by look k <=> the mSPRT has crossed at or before look k
+    crossed = np.logical_or.accumulate(msprt_crossings(sim['diff'], sim['var'], tau2), axis=1)
+    assert np.array_equal(p <= 0.05, crossed)
 
 
 def test_sim_variance_matches_spread_of_diffs():
