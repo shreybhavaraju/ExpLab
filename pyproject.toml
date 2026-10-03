@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest", "statsmodels"]
+dev = ["pytest", "statsmodels", "scikit-uplift"]
 
 [build-system]
 requires = ["setuptools>=61"]
