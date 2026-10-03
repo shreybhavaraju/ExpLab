@@ -4,7 +4,7 @@ from sklift.metrics import qini_auc_score, qini_curve as sklift_qini_curve, upli
 from sklift.metrics import uplift_curve as sklift_uplift_curve
 
 from explab.uplift import (_arms, auuc, captured_share, planted_effect_outcomes, qini_auc,
-                           qini_curve, t_learner, uplift_by_decile, uplift_curve)
+                           qini_curve, t_learner, uplift_by_decile, uplift_curve, x_learner)
 
 # small trees so the whole file runs in a few seconds
 SMALL = {'n_estimators': 60, 'learning_rate': 0.1, 'num_leaves': 7, 'min_child_samples': 100}
@@ -26,11 +26,12 @@ def planted(n, seed):
 def fitted():
     X, y, t, _ = planted(30_000, 0)
     X_te, y_te, t_te, seg_te = planted(10_000, 1)
-    preds = {'t': t_learner(X, y, t, X_te, params=SMALL)}
+    preds = {name: f(X, y, t, X_te, params=SMALL) for name, f in
+             [('t', t_learner), ('x', x_learner)]}
     return preds, y_te, t_te, seg_te
 
 
-@pytest.mark.parametrize('name', ['t'])
+@pytest.mark.parametrize('name', ['t', 'x'])
 def test_learners_find_the_planted_segment(fitted, name):
     preds, y, t, seg = fitted
     u = preds[name]

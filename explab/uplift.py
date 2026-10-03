@@ -1,5 +1,5 @@
-# Uplift modeling: which users does the ad actually move? T-learner on LightGBM, plus
-# Qini / AUUC to check it on held-out users against random targeting.
+# Uplift modeling: which users does the ad actually move? T-learner and X-learner on LightGBM,
+# plus Qini / AUUC to check them on held-out users against random targeting.
 
 import lightgbm as lgb
 import numpy as np
@@ -35,6 +35,27 @@ def t_learner(X, y, t, X_new, params=None, max_train_rows=None, seed=0):
     m0 = lgb.LGBMClassifier(**p).fit(X0, y0)
     m1 = lgb.LGBMClassifier(**p).fit(X1, y1)
     return m1.predict_proba(X_new)[:, 1] - m0.predict_proba(X_new)[:, 1]
+
+
+def x_learner(X, y, t, X_new, propensity=0.85, params=None, max_train_rows=None, seed=0):
+    """X-learner (Kunzel et al. 2019). Stage 1 fits mu0, mu1 like the T-learner. Stage 2 imputes
+    an effect for every training user using the other arm's model,
+
+        D1 = y1 - mu0(X1) on treated,   D0 = mu1(X0) - y0 on control,
+
+    fits regressors tau1 on (X1, D1) and tau0 on (X0, D0), and combines them as
+    tau(x) = g tau0(x) + (1 - g) tau1(x) with g = the propensity (a constant, it's randomized).
+    With 85% treated tau0 gets the bigger weight because it's built from mu1, which is fit on the
+    big treated arm, while every D1 leans on mu0 from the small control arm."""
+    (X0, y0), (X1, y1) = _arms(X, y, t, max_train_rows, seed)
+    p = _params(params, seed)
+    mu0 = lgb.LGBMClassifier(**p).fit(X0, y0)
+    mu1 = lgb.LGBMClassifier(**p).fit(X1, y1)
+    d1 = y1 - mu0.predict_proba(X1)[:, 1]
+    d0 = mu1.predict_proba(X0)[:, 1] - y0
+    tau1 = lgb.LGBMRegressor(**p).fit(X1, d1)
+    tau0 = lgb.LGBMRegressor(**p).fit(X0, d0)
+    return propensity * tau0.predict(X_new) + (1 - propensity) * tau1.predict(X_new)
 
 
 # Why not accuracy or ROC AUC like a normal classifier? Those compare each prediction to that
