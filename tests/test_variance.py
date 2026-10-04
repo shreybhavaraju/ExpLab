@@ -2,9 +2,9 @@ import numpy as np
 import pytest
 from lightgbm import LGBMClassifier
 
-from explab.readout import readout
+from explab.readout import compare, readout
 from explab.trust import aa_summary
-from explab.variance import balance, cuped, cuped_readout, oof_predictions
+from explab.variance import balance, cuped, cuped_from_sums, cuped_readout, oof_predictions
 
 # tiny LightGBM so the model tests run in a second or two. min 5 rows per leaf on purpose, it
 # makes the in-sample overfitting (the thing the leakage tests are about) easy to see
@@ -141,3 +141,17 @@ def test_oof_subsample_still_finds_signal():
     assert np.all((oof > 0) & (oof < 1))
     assert np.corrcoef(oof, p)[0, 1] > 0.8
 
+
+def test_cuped_from_sums_matches_arrays():
+    rng = np.random.default_rng(11)
+    x = rng.random(30_000) * 0.2
+    t = rng.random(30_000) < 0.85
+    y = (rng.random(30_000) < x + 0.01 * t).astype(float)
+    sums = [{'n': m.sum(), 'y': y[m].sum(), 'yy': (y[m] ** 2).sum(), 'x': x[m].sum(),
+             'xx': (x[m] ** 2).sum(), 'xy': (x[m] * y[m]).sum()} for m in (t, ~t)]
+    est, theta = cuped_from_sums(*sums)
+    r = cuped_readout(y, x, t)
+    assert theta == pytest.approx(r['theta'], rel=1e-9)
+    assert compare(*est)['diff'].value == pytest.approx(r['diff'].value, abs=1e-12)
+    assert compare(*est)['diff'].se == pytest.approx(r['diff'].se, rel=1e-9)
+    assert compare(*est)['lift'].value == pytest.approx(r['lift'].value, abs=1e-12)

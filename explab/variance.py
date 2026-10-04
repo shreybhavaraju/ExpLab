@@ -2,8 +2,6 @@
 # covariate is an out-of-fold model prediction of the outcome from the pre-treatment features.
 
 import numpy as np
-from lightgbm import LGBMClassifier
-from sklearn.model_selection import KFold
 
 from explab.readout import compare, diff, mean_and_var
 
@@ -27,6 +25,10 @@ def oof_predictions(X, y, n_folds=5, max_train_rows=2_000_000, seed=0, params=No
     would then subtract part of the real effect and fake a variance reduction.
     X should be the pre-treatment features only, never the treatment flag.
     """
+    # imported here so the app (which only needs the adjustment) doesn't need lightgbm
+    from lightgbm import LGBMClassifier
+    from sklearn.model_selection import KFold
+
     params = {**LGB_PARAMS, 'random_state': seed, **(params or {})}
     rng = np.random.default_rng(seed)
     X, y = np.asarray(X), np.asarray(y)
@@ -73,3 +75,24 @@ def balance(x, treatment, alpha=0.05):
     x = np.asarray(x, dtype=float)
     return diff(*mean_and_var(x[t]), *mean_and_var(x[~t]), alpha=alpha)
 
+
+def cuped_from_sums(t, c):
+    """cuped_readout from per-arm sums instead of per-user arrays, which is all the app has.
+    t and c are dicts with n, y, yy, x, xx, xy (sums of y, y^2, x, x^2, x*y over the arm).
+    Same pooled theta, then for each arm
+        mean = ybar - theta (xbar_arm - xbar_pooled)
+        var  = (Var(y) + theta^2 Var(x) - 2 theta Cov(x, y)) / n      (within the arm)
+    Returns (est_t, var_t, est_c, var_c) for compare(), and theta."""
+    n = t['n'] + c['n']
+    sx, sy = t['x'] + c['x'], t['y'] + c['y']
+    cov = (t['xy'] + c['xy'] - sx * sy / n) / (n - 1)
+    var_x = (t['xx'] + c['xx'] - sx**2 / n) / (n - 1)
+    theta = cov / var_x
+    out = []
+    for a in (t, c):
+        my, mx = a['y'] / a['n'], a['x'] / a['n']
+        v_y = (a['yy'] - a['n'] * my**2) / (a['n'] - 1)
+        v_x = (a['xx'] - a['n'] * mx**2) / (a['n'] - 1)
+        c_xy = (a['xy'] - a['n'] * mx * my) / (a['n'] - 1)
+        out += [my - theta * (mx - sx / n), (v_y + theta**2 * v_x - 2 * theta * c_xy) / a['n']]
+    return out, theta

@@ -1,0 +1,1856 @@
+{
+  "min_effect": 0.05,
+  "overall": {
+    "visit": {
+      "n_t": 11882655,
+      "n_c": 2096937,
+      "control": 0.03820095691954503,
+      "treatment": 0.048543360048743316,
+      "lift": 0.27073675539019604,
+      "lift_ci": [
+        0.2615329214618765,
+        0.27994058931851556
+      ],
+      "p_value": 0.0,
+      "mde_rel": 0.010529477067069965,
+      "srm_passed": true,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "treatment share differs across f0 bins (84.6% to 87.7%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "treatment share differs across f2 bins (84.7% to 85.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded"
+      ]
+    },
+    "conversion": {
+      "n_t": 11882655,
+      "n_c": 2096937,
+      "control": 0.0019375880152813366,
+      "treatment": 0.0030894610674129645,
+      "lift": 0.5944881177252619,
+      "lift_ci": [
+        0.5428710309245733,
+        0.6461052045259504
+      ],
+      "p_value": 7.904734607075013e-113,
+      "mde_rel": 0.0476266334471288,
+      "srm_passed": true,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "treatment share differs across f0 bins (84.6% to 87.7%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "treatment share differs across f2 bins (84.7% to 85.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded"
+      ]
+    },
+    "conversions_per_visit": {
+      "n_t": 11882655,
+      "n_c": 2096937,
+      "control": 0.05072092878097497,
+      "treatment": 0.06364332968115058,
+      "lift": 0.2547745321458448,
+      "lift_ci": [
+        0.2151844666832164,
+        0.29436459760847317
+      ],
+      "p_value": 1.790792265387661e-36,
+      "mde_rel": 0.0464481035802455,
+      "srm_passed": true,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "treatment share differs across f0 bins (84.6% to 87.7%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "treatment share differs across f2 bins (84.7% to 85.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded"
+      ]
+    }
+  },
+  "overall_cupac": {
+    "visit": {
+      "n_t": 11882655,
+      "n_c": 2096937,
+      "control": 0.0415860221118275,
+      "treatment": 0.04794599620631002,
+      "lift": 0.1529353800029285,
+      "lift_ci": [
+        0.14645833914140002,
+        0.15941242086445698
+      ],
+      "p_value": 0.0,
+      "mde_rel": 0.008095800426817854,
+      "srm_passed": true,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "treatment share differs across f0 bins (84.6% to 87.7%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "treatment share differs across f2 bins (84.7% to 85.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded"
+      ]
+    },
+    "conversion": {
+      "n_t": 11882655,
+      "n_c": 2096937,
+      "control": 0.0021172395173636466,
+      "treatment": 0.003057757893179431,
+      "lift": 0.444219167506803,
+      "lift_ci": [
+        0.4033120673069107,
+        0.4851262677066953
+      ],
+      "p_value": 1.6081692715985545e-100,
+      "mde_rel": 0.0412766653610092,
+      "srm_passed": true,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "treatment share differs across f0 bins (84.6% to 87.7%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "treatment share differs across f2 bins (84.7% to 85.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded"
+      ]
+    }
+  },
+  "segments": [
+    {
+      "segment": "f0 bin 0",
+      "metric": "visit",
+      "cupac": false,
+      "n_t": 3133761,
+      "n_c": 571784,
+      "control": 0.05163838092706337,
+      "treatment": 0.05333399707252723,
+      "lift": 0.032836353793873396,
+      "lift_ci": [
+        0.020393169219980786,
+        0.045279538367766006
+      ],
+      "p_value": 2.3141034223033163e-07,
+      "mde_rel": 0.017265613080296796,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8457 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken"
+      ]
+    },
+    {
+      "segment": "f0 bin 0",
+      "metric": "visit",
+      "cupac": true,
+      "n_t": 3133761,
+      "n_c": 571784,
+      "control": 0.051577468883618395,
+      "treatment": 0.05334511104447631,
+      "lift": 0.03427159570095428,
+      "lift_ci": [
+        0.023668105115010885,
+        0.04487508628689768
+      ],
+      "p_value": 2.3763464374556964e-10,
+      "mde_rel": 0.014689638523258552,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8457 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken"
+      ]
+    },
+    {
+      "segment": "f0 bin 0",
+      "metric": "conversion",
+      "cupac": false,
+      "n_t": 3133761,
+      "n_c": 571784,
+      "control": 0.001488324262308844,
+      "treatment": 0.0018696384312651795,
+      "lift": 0.25620369069627413,
+      "lift_ci": [
+        0.16595118170443235,
+        0.3464561996881159
+      ],
+      "p_value": 2.6391053284394232e-08,
+      "mde_rel": 0.10435400485983115,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8457 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 10.4% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 0",
+      "metric": "conversion",
+      "cupac": true,
+      "n_t": 3133761,
+      "n_c": 571784,
+      "control": 0.0014879277475985085,
+      "treatment": 0.0018697107790821108,
+      "lift": 0.2565870769597476,
+      "lift_ci": [
+        0.16935166391896506,
+        0.3438224900005301
+      ],
+      "p_value": 8.171739638927652e-09,
+      "mde_rel": 0.10089886056004573,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8457 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 10.1% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 0",
+      "metric": "conversions_per_visit",
+      "cupac": false,
+      "n_t": 3133761,
+      "n_c": 571784,
+      "control": 0.028822055137844613,
+      "treatment": 0.03505528431935669,
+      "lift": 0.21626595160202777,
+      "lift_ci": [
+        0.130120115820075,
+        0.30241178738398056
+      ],
+      "p_value": 8.63598055666944e-07,
+      "mde_rel": 0.10291577592986968,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8457 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 10.3% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 2",
+      "metric": "visit",
+      "cupac": false,
+      "n_t": 428140,
+      "n_c": 60197,
+      "control": 0.12163396847018955,
+      "treatment": 0.20393562853272293,
+      "lift": 0.6766338474165967,
+      "lift_ci": [
+        0.6392985945572079,
+        0.7139691002759855
+      ],
+      "p_value": 2.3472464704837645e-276,
+      "mde_rel": 0.03277157103642442,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8767 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f2 bins (86.2% to 88.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded"
+      ]
+    },
+    {
+      "segment": "f0 bin 2",
+      "metric": "visit",
+      "cupac": true,
+      "n_t": 428140,
+      "n_c": 60197,
+      "control": 0.14416533407846654,
+      "treatment": 0.20076769137309883,
+      "lift": 0.39262113639486085,
+      "lift_ci": [
+        0.37004345678705497,
+        0.4151988160026667
+      ],
+      "p_value": 1.3011924481822457e-254,
+      "mde_rel": 0.02360461830235674,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8767 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f2 bins (86.2% to 88.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded"
+      ]
+    },
+    {
+      "segment": "f0 bin 2",
+      "metric": "conversion",
+      "cupac": false,
+      "n_t": 428140,
+      "n_c": 60197,
+      "control": 0.01536621426316926,
+      "treatment": 0.023454944644275236,
+      "lift": 0.5263970840556069,
+      "lift_ci": [
+        0.4244279407595882,
+        0.6283662273516257
+      ],
+      "p_value": 4.599188522705619e-24,
+      "mde_rel": 0.09762046187656559,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8767 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f2 bins (86.2% to 88.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 9.8% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 2",
+      "metric": "conversion",
+      "cupac": true,
+      "n_t": 428140,
+      "n_c": 60197,
+      "control": 0.015194496048574022,
+      "treatment": 0.023479088432204392,
+      "lift": 0.545236403836366,
+      "lift_ci": [
+        0.45027267442427654,
+        0.6402001332484554
+      ],
+      "p_value": 2.2339602166075085e-29,
+      "mde_rel": 0.08991526873542074,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8767 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f2 bins (86.2% to 88.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 9.0% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 2",
+      "metric": "conversions_per_visit",
+      "cupac": false,
+      "n_t": 428140,
+      "n_c": 60197,
+      "control": 0.1263316033870527,
+      "treatment": 0.11501151031346993,
+      "lift": -0.08960618538894394,
+      "lift_ci": [
+        -0.14694572083493046,
+        -0.03226664994295742
+      ],
+      "p_value": 0.002192079860005797,
+      "mde_rel": 0.0919553082143635,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8767 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f2 bins (86.2% to 88.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 9.2% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 3",
+      "metric": "visit",
+      "cupac": false,
+      "n_t": 1198849,
+      "n_c": 199106,
+      "control": 0.08492963547055338,
+      "treatment": 0.1227235456675528,
+      "lift": 0.4450026187867395,
+      "lift_ci": [
+        0.4230507561072223,
+        0.46695448146625673
+      ],
+      "p_value": 0.0,
+      "mde_rel": 0.022254852619985985,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8576 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f2 bins (85.0% to 86.9%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded"
+      ]
+    },
+    {
+      "segment": "f0 bin 3",
+      "metric": "visit",
+      "cupac": true,
+      "n_t": 1198849,
+      "n_c": 199106,
+      "control": 0.09566127951532166,
+      "treatment": 0.12094122385790235,
+      "lift": 0.2642651705127119,
+      "lift_ci": [
+        0.24974227654246733,
+        0.2787880644829565
+      ],
+      "p_value": 1.4097572125834363e-278,
+      "mde_rel": 0.01664156319307158,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8576 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f2 bins (85.0% to 86.9%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded"
+      ]
+    },
+    {
+      "segment": "f0 bin 3",
+      "metric": "conversion",
+      "cupac": false,
+      "n_t": 1198849,
+      "n_c": 199106,
+      "control": 0.006092232278283929,
+      "treatment": 0.01019728089192217,
+      "lift": 0.6738168254468717,
+      "lift_ci": [
+        0.5753790969347445,
+        0.7722545539589989
+      ],
+      "p_value": 4.862381180039937e-41,
+      "mde_rel": 0.08659880977489488,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8576 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f2 bins (85.0% to 86.9%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 8.7% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 3",
+      "metric": "conversion",
+      "cupac": true,
+      "n_t": 1198849,
+      "n_c": 199106,
+      "control": 0.006471399452939307,
+      "treatment": 0.010134308441282484,
+      "lift": 0.5660149732650928,
+      "lift_ci": [
+        0.48308933207837274,
+        0.6489406144518127
+      ],
+      "p_value": 8.144131449979285e-41,
+      "mde_rel": 0.07759259802882777,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8576 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f2 bins (85.0% to 86.9%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 7.8% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 3",
+      "metric": "conversions_per_visit",
+      "cupac": false,
+      "n_t": 1198849,
+      "n_c": 199106,
+      "control": 0.07173270254287403,
+      "treatment": 0.08309147879043276,
+      "lift": 0.15834864496802803,
+      "lift_ci": [
+        0.09253780670308227,
+        0.2241594832329738
+      ],
+      "p_value": 2.406390647952701e-06,
+      "mde_rel": 0.08369035421893692,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8576 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f2 bins (85.0% to 86.9%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 8.4% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 4",
+      "metric": "visit",
+      "cupac": false,
+      "n_t": 1188913,
+      "n_c": 209046,
+      "control": 0.055279699204959676,
+      "treatment": 0.06975951983029877,
+      "lift": 0.261937398965441,
+      "lift_ci": [
+        0.23808936239185247,
+        0.2857854355390295
+      ],
+      "p_value": 8.610964162818788e-103,
+      "mde_rel": 0.02746786553481182,
+      "srm_passed": true,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "treatment share differs across f2 bins (84.9% to 85.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded"
+      ]
+    },
+    {
+      "segment": "f0 bin 4",
+      "metric": "visit",
+      "cupac": true,
+      "n_t": 1188913,
+      "n_c": 209046,
+      "control": 0.05826618030961624,
+      "treatment": 0.06923440829648254,
+      "lift": 0.18824347037308886,
+      "lift_ci": [
+        0.17024949677167536,
+        0.20623744397450236
+      ],
+      "p_value": 1.9785406622390845e-93,
+      "mde_rel": 0.021882645731585056,
+      "srm_passed": true,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "treatment share differs across f2 bins (84.9% to 85.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded"
+      ]
+    },
+    {
+      "segment": "f0 bin 4",
+      "metric": "conversion",
+      "cupac": false,
+      "n_t": 1188913,
+      "n_c": 209046,
+      "control": 0.0027218889622379764,
+      "treatment": 0.004098701923521738,
+      "lift": 0.5058299513260549,
+      "lift_ci": [
+        0.3752649740046383,
+        0.6363949286474715
+      ],
+      "p_value": 3.120540989790144e-14,
+      "mde_rel": 0.12718300020208276,
+      "srm_passed": true,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "treatment share differs across f2 bins (84.9% to 85.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 12.7% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 4",
+      "metric": "conversion",
+      "cupac": true,
+      "n_t": 1188913,
+      "n_c": 209046,
+      "control": 0.0027997372060981278,
+      "treatment": 0.00408501390430924,
+      "lift": 0.45907047826190306,
+      "lift_ci": [
+        0.3406333650684303,
+        0.5775075914553758
+      ],
+      "p_value": 3.0317625506290344e-14,
+      "mde_rel": 0.11868330539599042,
+      "srm_passed": true,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "treatment share differs across f2 bins (84.9% to 85.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 11.9% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 4",
+      "metric": "conversions_per_visit",
+      "cupac": false,
+      "n_t": 1188913,
+      "n_c": 209046,
+      "control": 0.049238490827275876,
+      "treatment": 0.05875473245074635,
+      "lift": 0.19326834481691524,
+      "lift_ci": [
+        0.0922917971392097,
+        0.29424489249462077
+      ],
+      "p_value": 0.00017588063879638068,
+      "mde_rel": 0.12418144750068134,
+      "srm_passed": true,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "treatment share differs across f2 bins (84.9% to 85.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 12.4% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 5",
+      "metric": "visit",
+      "cupac": false,
+      "n_t": 1188029,
+      "n_c": 209933,
+      "control": 0.013752006592579536,
+      "treatment": 0.016350610969934235,
+      "lift": 0.18896183330488525,
+      "lift_ci": [
+        0.14280868874893357,
+        0.23511497786083693
+      ],
+      "p_value": 1.0189569469440103e-15,
+      "mde_rel": 0.056170554125511245,
+      "srm_passed": true,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "underpowered: this sample can only reliably detect lifts of 5.6% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 5",
+      "metric": "visit",
+      "cupac": true,
+      "n_t": 1188029,
+      "n_c": 209933,
+      "control": 0.01413620657908752,
+      "treatment": 0.016282720156016745,
+      "lift": 0.15184509117917688,
+      "lift_ci": [
+        0.11554855608495043,
+        0.18814162627340333
+      ],
+      "p_value": 2.415288943466674e-16,
+      "mde_rel": 0.04548731041734899,
+      "srm_passed": true,
+      "balance_passed": true,
+      "verdict": "SHIP",
+      "reasons": [
+        "primary metric up +15.2%, 95% CI [+11.6%, +18.8%]",
+        "no guardrail got significantly worse (conversions per visit)"
+      ]
+    },
+    {
+      "segment": "f0 bin 5",
+      "metric": "conversion",
+      "cupac": false,
+      "n_t": 1188029,
+      "n_c": 209933,
+      "control": 0.00044299848046757773,
+      "treatment": 0.0006725425052755446,
+      "lift": 0.5181598468818378,
+      "lift_ci": [
+        0.19222358209130902,
+        0.8440961116723666
+      ],
+      "p_value": 0.0018340385220257452,
+      "mde_rel": 0.31506585714671725,
+      "srm_passed": true,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "underpowered: this sample can only reliably detect lifts of 31.5% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 5",
+      "metric": "conversion",
+      "cupac": true,
+      "n_t": 1188029,
+      "n_c": 209933,
+      "control": 0.00044282903551636806,
+      "treatment": 0.0006725724473787612,
+      "lift": 0.5188083739687417,
+      "lift_ci": [
+        0.20317469984779085,
+        0.8344420480896926
+      ],
+      "p_value": 0.001274765689933752,
+      "mde_rel": 0.30470851505005936,
+      "srm_passed": true,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "underpowered: this sample can only reliably detect lifts of 30.5% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 5",
+      "metric": "conversions_per_visit",
+      "cupac": false,
+      "n_t": 1188029,
+      "n_c": 209933,
+      "control": 0.03221337028056807,
+      "treatment": 0.041132561132561134,
+      "lift": 0.2768785375236986,
+      "lift_ci": [
+        0.007261553399376952,
+        0.5464955216480203
+      ],
+      "p_value": 0.04414078928330301,
+      "mde_rel": 0.31001832718216615,
+      "srm_passed": true,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "underpowered: this sample can only reliably detect lifts of 31.0% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 6",
+      "metric": "visit",
+      "cupac": false,
+      "n_t": 1186725,
+      "n_c": 211233,
+      "control": 0.0202477832535636,
+      "treatment": 0.022685963470896797,
+      "lift": 0.12041714328920827,
+      "lift_ci": [
+        0.08464377487682642,
+        0.15619051170159012
+      ],
+      "p_value": 4.182696213300054e-11,
+      "mde_rel": 0.04602198893677563,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8489 vs 0.85 expected (p = 0.0003), so the assignment or the logging is broken"
+      ]
+    },
+    {
+      "segment": "f0 bin 6",
+      "metric": "visit",
+      "cupac": true,
+      "n_t": 1186725,
+      "n_c": 211233,
+      "control": 0.020686080697926178,
+      "treatment": 0.02260794802160143,
+      "lift": 0.09290630505313291,
+      "lift_ci": [
+        0.06424219904910848,
+        0.12157041105715734
+      ],
+      "p_value": 2.1163790026311476e-10,
+      "mde_rel": 0.03767770566660558,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8489 vs 0.85 expected (p = 0.0003), so the assignment or the logging is broken"
+      ]
+    },
+    {
+      "segment": "f0 bin 6",
+      "metric": "conversion",
+      "cupac": false,
+      "n_t": 1186725,
+      "n_c": 211233,
+      "control": 0.000819000819000819,
+      "treatment": 0.0010516336977817102,
+      "lift": 0.28404474499146803,
+      "lift_ci": [
+        0.07995941080962274,
+        0.4881300791733133
+      ],
+      "p_value": 0.006374547259681408,
+      "mde_rel": 0.23108721213530098,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8489 vs 0.85 expected (p = 0.0003), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 23.1% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 6",
+      "metric": "conversion",
+      "cupac": true,
+      "n_t": 1186725,
+      "n_c": 211233,
+      "control": 0.0008381807350338334,
+      "treatment": 0.001048219738184161,
+      "lift": 0.25058915621801936,
+      "lift_ci": [
+        0.06368081244234577,
+        0.4374974999936929
+      ],
+      "p_value": 0.008595527976384638,
+      "mde_rel": 0.2162604967135147,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8489 vs 0.85 expected (p = 0.0003), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 21.6% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 6",
+      "metric": "conversions_per_visit",
+      "cupac": false,
+      "n_t": 1186725,
+      "n_c": 211233,
+      "control": 0.04044891278933833,
+      "treatment": 0.04635613995988411,
+      "lift": 0.1460416798174815,
+      "lift_ci": [
+        -0.03239632703718806,
+        0.3244796866721511
+      ],
+      "p_value": 0.10868703960794951,
+      "mde_rel": 0.22645811124084053,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8489 vs 0.85 expected (p = 0.0003), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 22.6% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 7",
+      "metric": "visit",
+      "cupac": false,
+      "n_t": 1186439,
+      "n_c": 211523,
+      "control": 0.011232821017099796,
+      "treatment": 0.012893203948959871,
+      "lift": 0.14781531098309708,
+      "lift_ci": [
+        0.09849250256475386,
+        0.1971381194014403
+      ],
+      "p_value": 4.25897700252591e-09,
+      "mde_rel": 0.0620374078181041,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8487 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 6.2% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 7",
+      "metric": "visit",
+      "cupac": true,
+      "n_t": 1186439,
+      "n_c": 211523,
+      "control": 0.011356892948554305,
+      "treatment": 0.012871083918214885,
+      "lift": 0.13332792485759337,
+      "lift_ci": [
+        0.09305233153176043,
+        0.17360351818342631
+      ],
+      "p_value": 8.684178508475133e-11,
+      "mde_rel": 0.05125896640197993,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8487 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 5.1% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 7",
+      "metric": "conversion",
+      "cupac": false,
+      "n_t": 1186439,
+      "n_c": 211523,
+      "control": 0.0004018475532211627,
+      "treatment": 0.0005031864259350881,
+      "lift": 0.2521823808596191,
+      "lift_ci": [
+        -0.03227823023209775,
+        0.5366429919513359
+      ],
+      "p_value": 0.08228775038435894,
+      "mde_rel": 0.3297866715745317,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8487 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 33.0% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 7",
+      "metric": "conversion",
+      "cupac": true,
+      "n_t": 1186439,
+      "n_c": 211523,
+      "control": 0.00040629512871871677,
+      "treatment": 0.0005023934947249971,
+      "lift": 0.23652354954226018,
+      "lift_ci": [
+        -0.03173438610359769,
+        0.504781485188118
+      ],
+      "p_value": 0.0839695624760769,
+      "mde_rel": 0.31394868191416897,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8487 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 31.4% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 7",
+      "metric": "conversions_per_visit",
+      "cupac": false,
+      "n_t": 1186439,
+      "n_c": 211523,
+      "control": 0.03577441077441077,
+      "treatment": 0.03902726024710727,
+      "lift": 0.09092670996619878,
+      "lift_ci": [
+        -0.15242710183450453,
+        0.3342805217669021
+      ],
+      "p_value": 0.46397273998958477,
+      "mde_rel": 0.32389907190268125,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8487 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 32.4% or more, bigger than the 5% that matters",
+        "the CI [-15.2%, +33.4%] includes both a meaningful drop and a meaningful gain (+-5%)"
+      ]
+    },
+    {
+      "segment": "f0 bin 8",
+      "metric": "visit",
+      "cupac": false,
+      "n_t": 1185087,
+      "n_c": 212875,
+      "control": 0.017038167938931297,
+      "treatment": 0.01791260894769751,
+      "lift": 0.051322478561099505,
+      "lift_ci": [
+        0.014619302906176752,
+        0.08802565421602226
+      ],
+      "p_value": 0.006131955945951753,
+      "mde_rel": 0.050092415365288204,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8477 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 5.0% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 8",
+      "metric": "visit",
+      "cupac": true,
+      "n_t": 1185087,
+      "n_c": 212875,
+      "control": 0.017035409923808663,
+      "treatment": 0.01791310436488564,
+      "lift": 0.05152176818770382,
+      "lift_ci": [
+        0.020650487339720903,
+        0.08239304903568674
+      ],
+      "p_value": 0.0010715747183704298,
+      "mde_rel": 0.042090847882762385,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8477 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken"
+      ]
+    },
+    {
+      "segment": "f0 bin 8",
+      "metric": "conversion",
+      "cupac": false,
+      "n_t": 1185087,
+      "n_c": 212875,
+      "control": 0.0004744568408690546,
+      "treatment": 0.0005915177535488955,
+      "lift": 0.2467261563041696,
+      "lift_ci": [
+        -0.01327861090024346,
+        0.5067309235085826
+      ],
+      "p_value": 0.06290429405281693,
+      "mde_rel": 0.30270088115958377,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8477 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 30.3% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 8",
+      "metric": "conversion",
+      "cupac": true,
+      "n_t": 1185087,
+      "n_c": 212875,
+      "control": 0.0004532948710694172,
+      "treatment": 0.0005953190392950879,
+      "lift": 0.31331518905256095,
+      "lift_ci": [
+        0.03649284989527812,
+        0.5901375282098438
+      ],
+      "p_value": 0.026531555778594805,
+      "mde_rel": 0.3079257391984314,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8477 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 30.8% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 8",
+      "metric": "conversions_per_visit",
+      "cupac": false,
+      "n_t": 1185087,
+      "n_c": 212875,
+      "control": 0.027846705266060107,
+      "treatment": 0.0330224232146222,
+      "lift": 0.18586464355875942,
+      "lift_ci": [
+        -0.05795761548655401,
+        0.42968690260407283
+      ],
+      "p_value": 0.1351568045273324,
+      "mde_rel": 0.2985273410889861,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8477 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 29.9% or more, bigger than the 5% that matters",
+        "the CI [-5.8%, +43.0%] includes both a meaningful drop and a meaningful gain (+-5%)"
+      ]
+    },
+    {
+      "segment": "f0 bin 9",
+      "metric": "visit",
+      "cupac": false,
+      "n_t": 1186712,
+      "n_c": 211240,
+      "control": 0.007687937890551032,
+      "treatment": 0.007953066961486864,
+      "lift": 0.03448637003970756,
+      "lift_ci": [
+        -0.01977280838598735,
+        0.08874554846540247
+      ],
+      "p_value": 0.21286518140289012,
+      "mde_rel": 0.07516392507204167,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8489 vs 0.85 expected (p = 0.0002), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 7.5% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 9",
+      "metric": "visit",
+      "cupac": true,
+      "n_t": 1186712,
+      "n_c": 211240,
+      "control": 0.007659114603782886,
+      "treatment": 0.007958197634385515,
+      "lift": 0.03904929565290871,
+      "lift_ci": [
+        -0.006841093363516619,
+        0.08493968466933405
+      ],
+      "p_value": 0.09535880124268972,
+      "mde_rel": 0.0632369964538624,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8489 vs 0.85 expected (p = 0.0002), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 6.3% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f0 bin 9",
+      "metric": "conversion",
+      "cupac": false,
+      "n_t": 1186712,
+      "n_c": 211240,
+      "control": 0.00025089945086157926,
+      "treatment": 0.0003092578485765712,
+      "lift": 0.23259675345877162,
+      "lift_ci": [
+        -0.12235360708134463,
+        0.5875471139988879
+      ],
+      "p_value": 0.19901876642162797,
+      "mde_rel": 0.4176244381789064,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8489 vs 0.85 expected (p = 0.0002), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 41.8% or more, bigger than the 5% that matters",
+        "the CI [-12.2%, +58.8%] includes both a meaningful drop and a meaningful gain (+-5%)"
+      ]
+    },
+    {
+      "segment": "f0 bin 9",
+      "metric": "conversion",
+      "cupac": true,
+      "n_t": 1186712,
+      "n_c": 211240,
+      "control": 0.00023913248444353395,
+      "treatment": 0.0003113524207947235,
+      "lift": 0.3020080543187045,
+      "lift_ci": [
+        -0.07673499602878797,
+        0.6807511046661969
+      ],
+      "p_value": 0.11808394647207401,
+      "mde_rel": 0.42396544672449926,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8489 vs 0.85 expected (p = 0.0002), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 42.4% or more, bigger than the 5% that matters",
+        "the CI [-7.7%, +68.1%] includes both a meaningful drop and a meaningful gain (+-5%)"
+      ]
+    },
+    {
+      "segment": "f0 bin 9",
+      "metric": "conversions_per_visit",
+      "cupac": false,
+      "n_t": 1186712,
+      "n_c": 211240,
+      "control": 0.03263546798029557,
+      "treatment": 0.03888535706717525,
+      "lift": 0.1915060354168414,
+      "lift_ci": [
+        -0.1458720808582078,
+        0.5288841516918906
+      ],
+      "p_value": 0.265908228875806,
+      "mde_rel": 0.4108047659558147,
+      "srm_passed": false,
+      "balance_passed": true,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8489 vs 0.85 expected (p = 0.0002), so the assignment or the logging is broken",
+        "underpowered: this sample can only reliably detect lifts of 41.1% or more, bigger than the 5% that matters",
+        "the CI [-14.6%, +52.9%] includes both a meaningful drop and a meaningful gain (+-5%)"
+      ]
+    },
+    {
+      "segment": "f2 bin 0",
+      "metric": "visit",
+      "cupac": false,
+      "n_t": 6202656,
+      "n_c": 1100773,
+      "control": 0.0009584174030431343,
+      "treatment": 0.0014964557118756867,
+      "lift": 0.5613820315910287,
+      "lift_ci": [
+        0.462004651798262,
+        0.6607594113837955
+      ],
+      "p_value": 1.7187202987163897e-28,
+      "mde_rel": 0.09355007611124512,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8493 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.4% to 86.2%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 9.4% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 0",
+      "metric": "visit",
+      "cupac": true,
+      "n_t": 6202656,
+      "n_c": 1100773,
+      "control": 0.0009831732544621718,
+      "treatment": 0.0014920623402564824,
+      "lift": 0.5175985854829726,
+      "lift_ci": [
+        0.4231714553045616,
+        0.6120257156613835
+      ],
+      "p_value": 6.36110803227537e-27,
+      "mde_rel": 0.09119813071919883,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8493 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.4% to 86.2%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 9.1% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 0",
+      "metric": "conversion",
+      "cupac": false,
+      "n_t": 6202656,
+      "n_c": 1100773,
+      "control": 5.904941345763386e-05,
+      "treatment": 9.39919931074688e-05,
+      "lift": 0.5917515112136575,
+      "lift_ci": [
+        0.18380191636404314,
+        0.9997011060632719
+      ],
+      "p_value": 0.00446873062426291,
+      "mde_rel": 0.3770588089630014,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8493 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.4% to 86.2%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 37.7% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 0",
+      "metric": "conversion",
+      "cupac": true,
+      "n_t": 6202656,
+      "n_c": 1100773,
+      "control": 5.9159532271626515e-05,
+      "treatment": 9.397245054098839e-05,
+      "lift": 0.5884583081137456,
+      "lift_ci": [
+        0.182027036427042,
+        0.9948895798004491
+      ],
+      "p_value": 0.0045430388691747835,
+      "mde_rel": 0.3763559474059589,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8493 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.4% to 86.2%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 37.6% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 0",
+      "metric": "conversions_per_visit",
+      "cupac": false,
+      "n_t": 6202656,
+      "n_c": 1100773,
+      "control": 0.061611374407582936,
+      "treatment": 0.06280973928032751,
+      "lift": 0.019450383703777385,
+      "lift_ci": [
+        -0.2336393112463072,
+        0.272540078653862
+      ],
+      "p_value": 0.8802702418053872,
+      "mde_rel": 0.3652693919235191,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8493 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.4% to 86.2%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 36.5% or more, bigger than the 5% that matters",
+        "the CI [-23.4%, +27.3%] includes both a meaningful drop and a meaningful gain (+-5%)"
+      ]
+    },
+    {
+      "segment": "f2 bin 5",
+      "metric": "visit",
+      "cupac": false,
+      "n_t": 929929,
+      "n_c": 154399,
+      "control": 0.30012500080959076,
+      "treatment": 0.35023749124933196,
+      "lift": 0.16697206265576736,
+      "lift_ci": [
+        0.15751432815319286,
+        0.17642979715834187
+      ],
+      "p_value": 2.3342010666679312e-262,
+      "mde_rel": 0.011757029163657824,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8576 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.5% to 88.7%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded"
+      ]
+    },
+    {
+      "segment": "f2 bin 5",
+      "metric": "visit",
+      "cupac": true,
+      "n_t": 929929,
+      "n_c": 154399,
+      "control": 0.313360351513318,
+      "treatment": 0.34803998486625887,
+      "lift": 0.11067013802308368,
+      "lift_ci": [
+        0.10302623646285904,
+        0.11831403958330831
+      ],
+      "p_value": 3.9098570602910503e-177,
+      "mde_rel": 0.009942110993767373,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8576 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.5% to 88.7%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded"
+      ]
+    },
+    {
+      "segment": "f2 bin 5",
+      "metric": "conversion",
+      "cupac": false,
+      "n_t": 929929,
+      "n_c": 154399,
+      "control": 0.017662031489841256,
+      "treatment": 0.026083711767242446,
+      "lift": 0.47682398722055974,
+      "lift_ci": [
+        0.4189060195235688,
+        0.5347419549175507
+      ],
+      "p_value": 1.4273967341684795e-58,
+      "mde_rel": 0.05741806867671561,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8576 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.5% to 88.7%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 5.7% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 5",
+      "metric": "conversion",
+      "cupac": true,
+      "n_t": 929929,
+      "n_c": 154399,
+      "control": 0.018421829501113263,
+      "treatment": 0.02595756014368582,
+      "lift": 0.4090652691209178,
+      "lift_ci": [
+        0.3595628972465389,
+        0.4585676409952967
+      ],
+      "p_value": 5.359030515752281e-59,
+      "mde_rel": 0.051228704883243895,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8576 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.5% to 88.7%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 5.1% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 5",
+      "metric": "conversions_per_visit",
+      "cupac": false,
+      "n_t": 929929,
+      "n_c": 154399,
+      "control": 0.05884891775825978,
+      "treatment": 0.07447435645509923,
+      "lift": 0.26551785983602616,
+      "lift_ci": [
+        0.21695820074217192,
+        0.3140775189298804
+      ],
+      "p_value": 8.486533329316062e-27,
+      "mde_rel": 0.05620148464061185,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8576 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.5% to 88.7%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 5.6% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 6",
+      "metric": "visit",
+      "cupac": false,
+      "n_t": 1191542,
+      "n_c": 206420,
+      "control": 0.10809030132739075,
+      "treatment": 0.13559572386034233,
+      "lift": 0.2544670723938627,
+      "lift_ci": [
+        0.23791413823492333,
+        0.271020006552802
+      ],
+      "p_value": 1.9385233028797451e-199,
+      "mde_rel": 0.01918620530965961,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8523 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.5% to 88.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded"
+      ]
+    },
+    {
+      "segment": "f2 bin 6",
+      "metric": "visit",
+      "cupac": true,
+      "n_t": 1191542,
+      "n_c": 206420,
+      "control": 0.11436928098269997,
+      "treatment": 0.13450796784297248,
+      "lift": 0.17608475534019297,
+      "lift_ci": [
+        0.16223684747636827,
+        0.18993266320401767
+      ],
+      "p_value": 4.280072957088812e-137,
+      "mde_rel": 0.01702121456733037,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8523 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.5% to 88.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded"
+      ]
+    },
+    {
+      "segment": "f2 bin 6",
+      "metric": "conversion",
+      "cupac": false,
+      "n_t": 1191542,
+      "n_c": 206420,
+      "control": 0.004253463811646158,
+      "treatment": 0.006789521477211882,
+      "lift": 0.5962335117609074,
+      "lift_ci": [
+        0.48531807004356814,
+        0.7071489534782467
+      ],
+      "p_value": 5.900354906145105e-26,
+      "mde_rel": 0.10219391547495016,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8523 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.5% to 88.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 10.2% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 6",
+      "metric": "conversion",
+      "cupac": true,
+      "n_t": 1191542,
+      "n_c": 206420,
+      "control": 0.004508677078148971,
+      "treatment": 0.006745308916956757,
+      "lift": 0.4960727503966711,
+      "lift_ci": [
+        0.3986090018714769,
+        0.5935364989218653
+      ],
+      "p_value": 1.9440959579247082e-23,
+      "mde_rel": 0.09529411534825703,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8523 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.5% to 88.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 9.5% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 6",
+      "metric": "conversions_per_visit",
+      "cupac": false,
+      "n_t": 1191542,
+      "n_c": 206420,
+      "control": 0.03935102187163858,
+      "treatment": 0.0500717963953258,
+      "lift": 0.2724395457545663,
+      "lift_ci": [
+        0.18563200039743322,
+        0.3592470911116994
+      ],
+      "p_value": 7.68925902397779e-10,
+      "mde_rel": 0.10037671984039348,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8523 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.5% to 88.8%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 10.0% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 7",
+      "metric": "visit",
+      "cupac": false,
+      "n_t": 1188385,
+      "n_c": 209583,
+      "control": 0.03169627307558342,
+      "treatment": 0.043341173104675675,
+      "lift": 0.36739019762114133,
+      "lift_ci": [
+        0.3330337031738991,
+        0.4017466920683836
+      ],
+      "p_value": 1.5590680635559984e-97,
+      "mde_rel": 0.03668584977613642,
+      "srm_passed": true,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "treatment share differs across f0 bins (84.4% to 88.0%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded"
+      ]
+    },
+    {
+      "segment": "f2 bin 7",
+      "metric": "visit",
+      "cupac": true,
+      "n_t": 1188385,
+      "n_c": 209583,
+      "control": 0.0335755005982929,
+      "treatment": 0.04300975345372752,
+      "lift": 0.28098621576216454,
+      "lift_ci": [
+        0.2508550012105998,
+        0.3111174303137293
+      ],
+      "p_value": 1.2505835460141645e-74,
+      "mde_rel": 0.03413748318772593,
+      "srm_passed": true,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "treatment share differs across f0 bins (84.4% to 88.0%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded"
+      ]
+    },
+    {
+      "segment": "f2 bin 7",
+      "metric": "conversion",
+      "cupac": false,
+      "n_t": 1188385,
+      "n_c": 209583,
+      "control": 0.001121274149143776,
+      "treatment": 0.0020338526655923794,
+      "lift": 0.8138763540972243,
+      "lift_ci": [
+        0.5710979590786385,
+        1.05665474911581
+      ],
+      "p_value": 5.015643836702902e-11,
+      "mde_rel": 0.19810587656101952,
+      "srm_passed": true,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "treatment share differs across f0 bins (84.4% to 88.0%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 19.8% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 7",
+      "metric": "conversion",
+      "cupac": true,
+      "n_t": 1188385,
+      "n_c": 209583,
+      "control": 0.0011788991557992688,
+      "treatment": 0.0020236899474750368,
+      "lift": 0.7165929227449632,
+      "lift_ci": [
+        0.49766842302172376,
+        0.9355174224682027
+      ],
+      "p_value": 1.4041954126515435e-10,
+      "mde_rel": 0.18787507193330116,
+      "srm_passed": true,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "treatment share differs across f0 bins (84.4% to 88.0%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 18.8% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 7",
+      "metric": "conversions_per_visit",
+      "cupac": false,
+      "n_t": 1188385,
+      "n_c": 209583,
+      "control": 0.0353755833207888,
+      "treatment": 0.04692657166155399,
+      "lift": 0.3265243214795879,
+      "lift_ci": [
+        0.15213199896809973,
+        0.500916643991076
+      ],
+      "p_value": 0.00024278951176193492,
+      "mde_rel": 0.19467944615241917,
+      "srm_passed": true,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "treatment share differs across f0 bins (84.4% to 88.0%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 19.5% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 8",
+      "metric": "visit",
+      "cupac": false,
+      "n_t": 1185549,
+      "n_c": 212407,
+      "control": 0.01197700640751011,
+      "treatment": 0.016458197847579476,
+      "lift": 0.3741495401772066,
+      "lift_ci": [
+        0.31773294903460253,
+        0.43056613131981064
+      ],
+      "p_value": 1.2509759984548895e-38,
+      "mde_rel": 0.05995381575385607,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8481 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.6% to 87.4%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 6.0% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 8",
+      "metric": "visit",
+      "cupac": true,
+      "n_t": 1185549,
+      "n_c": 212407,
+      "control": 0.01250918153845117,
+      "treatment": 0.016362851537104078,
+      "lift": 0.308067317338657,
+      "lift_ci": [
+        0.2565393902931271,
+        0.3595952443841869
+      ],
+      "p_value": 1.0315711623794394e-31,
+      "mde_rel": 0.05724010609847704,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8481 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.6% to 87.4%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 5.7% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 8",
+      "metric": "conversion",
+      "cupac": false,
+      "n_t": 1185549,
+      "n_c": 212407,
+      "control": 0.0005367054758082361,
+      "treatment": 0.0007852901904518497,
+      "lift": 0.46316783757286006,
+      "lift_ci": [
+        0.178687942074718,
+        0.7476477330710021
+      ],
+      "p_value": 0.0014175207191785087,
+      "mde_rel": 0.2848543497026719,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8481 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.6% to 87.4%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 28.5% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 8",
+      "metric": "conversion",
+      "cupac": true,
+      "n_t": 1185549,
+      "n_c": 212407,
+      "control": 0.0005511750300740871,
+      "treatment": 0.000782697775787465,
+      "lift": 0.4200530377478411,
+      "lift_ci": [
+        0.15049002681797025,
+        0.6896160486777119
+      ],
+      "p_value": 0.0022569095114842114,
+      "mde_rel": 0.2772188654130529,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8481 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.6% to 87.4%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 27.7% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 8",
+      "metric": "conversions_per_visit",
+      "cupac": false,
+      "n_t": 1185549,
+      "n_c": 212407,
+      "control": 0.04481132075471698,
+      "treatment": 0.04771422714227142,
+      "lift": 0.06478064780647808,
+      "lift_ci": [
+        -0.13757374158898997,
+        0.2671350372019461
+      ],
+      "p_value": 0.5303627632793598,
+      "mde_rel": 0.2784735903476033,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8481 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.6% to 87.4%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 27.8% or more, bigger than the 5% that matters",
+        "the CI [-13.8%, +26.7%] includes both a meaningful drop and a meaningful gain (+-5%)"
+      ]
+    },
+    {
+      "segment": "f2 bin 9",
+      "metric": "visit",
+      "cupac": false,
+      "n_t": 1184594,
+      "n_c": 213355,
+      "control": 0.005680673056642685,
+      "treatment": 0.007817024229398426,
+      "lift": 0.37607360104232757,
+      "lift_ci": [
+        0.2939330474512528,
+        0.4582141546334023
+      ],
+      "p_value": 2.871607759670088e-19,
+      "mde_rel": 0.087172075285216,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8474 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.6% to 87.0%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 8.7% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 9",
+      "metric": "visit",
+      "cupac": true,
+      "n_t": 1184594,
+      "n_c": 213355,
+      "control": 0.005873848192061424,
+      "treatment": 0.007782231818650722,
+      "lift": 0.32489495202965935,
+      "lift_ci": [
+        0.24814616329459657,
+        0.4016437407647221
+      ],
+      "p_value": 1.0680025192531475e-16,
+      "mde_rel": 0.08424962009094158,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8474 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.6% to 87.0%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 8.4% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 9",
+      "metric": "conversion",
+      "cupac": false,
+      "n_t": 1184594,
+      "n_c": 213355,
+      "control": 0.00020622905486161562,
+      "treatment": 0.00036637025006035825,
+      "lift": 0.7765210159460849,
+      "lift_ci": [
+        0.22569538772291275,
+        1.327346644169257
+      ],
+      "p_value": 0.00572657542231969,
+      "mde_rel": 0.45876959758623476,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8474 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.6% to 87.0%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 45.9% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 9",
+      "metric": "conversion",
+      "cupac": true,
+      "n_t": 1184594,
+      "n_c": 213355,
+      "control": 0.00021056696194429001,
+      "treatment": 0.0003655889577647498,
+      "lift": 0.7362123401935874,
+      "lift_ci": [
+        0.20786454668969545,
+        1.2645601336974792
+      ],
+      "p_value": 0.006313092382645047,
+      "mde_rel": 0.44930156614764466,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8474 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.6% to 87.0%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 44.9% or more, bigger than the 5% that matters"
+      ]
+    },
+    {
+      "segment": "f2 bin 9",
+      "metric": "conversions_per_visit",
+      "cupac": false,
+      "n_t": 1184594,
+      "n_c": 213355,
+      "control": 0.0363036303630363,
+      "treatment": 0.04686825053995681,
+      "lift": 0.29100726487335593,
+      "lift_ci": [
+        -0.10179260898615389,
+        0.6838071387328657
+      ],
+      "p_value": 0.14648862216545036,
+      "mde_rel": 0.4504115595318403,
+      "srm_passed": false,
+      "balance_passed": false,
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "sample ratio mismatch: treatment share 0.8474 vs 0.85 expected (p < 0.0001), so the assignment or the logging is broken",
+        "treatment share differs across f0 bins (84.6% to 87.0%, p < 0.0001), so the arms were different before treatment and the difference in means is confounded",
+        "underpowered: this sample can only reliably detect lifts of 45.0% or more, bigger than the 5% that matters",
+        "the CI [-10.2%, +68.4%] includes both a meaningful drop and a meaningful gain (+-5%)"
+      ]
+    }
+  ]
+}
