@@ -175,7 +175,7 @@ with tab_validation:
                 f"(z = {v['balance']['z']:.0f}), same imbalance the balance check flags.")
     figs = [('A/A test', 'aa_pvalues.png'), ('Treatment share by feature decile', 'balance.png'),
             ('Peeking', 'peeking_fpr.png'), ('Power', 'power_curves.png'),
-            ('CUPAC', 'cupac_ci.png')]
+            ('CUPAC', 'cupac_ci.png'), ('Ratio metric variance', 'ratio_pitfalls.png')]
     for title, fig in figs:
         with st.expander(title):
             st.image(str(FIGURES / fig))

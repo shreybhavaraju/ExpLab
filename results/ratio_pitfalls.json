@@ -1,0 +1,52 @@
+{
+  "real_data": {
+    "control": {
+      "n": 2096937,
+      "visits": 80105,
+      "conversions": 4063,
+      "ratio": 0.05072092878097497,
+      "naive_se": 0.000775283853935786,
+      "delta_se": 0.000775284038796879
+    },
+    "treatment": {
+      "n": 11882655,
+      "visits": 576824,
+      "conversions": 36711,
+      "ratio": 0.06364332968115058,
+      "naive_se": 0.0003214218821377094,
+      "delta_se": 0.0003214218956625447
+    }
+  },
+  "simulation": {
+    "n_users_per_arm": 20000,
+    "n_sims": 1000,
+    "visits_mean": 3.0,
+    "visits_gamma_shape": 0.5,
+    "q_beta_control": [
+      0.5,
+      9.5
+    ],
+    "q_beta_treatment": [
+      0.55,
+      9.45
+    ],
+    "true_ratio_control": 0.05,
+    "true_ratio_treatment": 0.05500000000000001,
+    "true_lift": 0.10000000000000009,
+    "coverage": {
+      "naive": {
+        "diff": 0.852,
+        "lift": 0.853
+      },
+      "delta": {
+        "diff": 0.948,
+        "lift": 0.949
+      }
+    },
+    "treatment_se": {
+      "sd_across_sims": 0.0012745108859992785,
+      "mean_naive_se": 0.0009305991645379839,
+      "mean_delta_se": 0.0012544615152312083
+    }
+  }
+}
