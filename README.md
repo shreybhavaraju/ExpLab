@@ -57,6 +57,8 @@ Each method is checked on a case where the answer is known. The pass conditions 
 | uplift models | real features, fake outcomes with a +3pt effect planted in the bottom 20% of f8 | planted segment ranked first, Qini beats random | both rank it first (85% of the X-learner's top 20% is the segment), Qini AUC 0.030 / 0.025 vs 0.002 +- 0.007 for random scores |
 | decision layer | unit test per rule | right verdict and reason | pass ([test_decide.py](tests/test_decide.py)) |
 
+The simulated power curves ([figures/power_curves.png](figures/power_curves.png), 1,000 runs per point at the real arm sizes) sit on the normal approximation. The one point that sticks out is visits at zero lift: 7.0% significant instead of 5%, about 3 SE high. Rerunning just that point on another seed gives 4.2%, and an exact binomial version of the same test gives 5.07% over 200k runs, so it's seed noise and not a miscalibrated test.
+
 The test suite (84 tests, synthetic data only) runs in CI on every push. A few of them are there to make sure the checks can fail: the A/A test catches a readout with a too-narrow CI, and the CUPAC tests show that an in-sample prediction leaks the treatment effect into the covariate and fakes a variance reduction, which is why it has to be out-of-fold.
 
 ## Methods, briefly
@@ -99,7 +101,7 @@ The analysis scripts each write to `results/` and `figures/`:
 ```bash
 python scripts/run_readout.py      # readout + bootstrap CIs (~5 min)
 python scripts/run_trust.py        # SRM, A/A test, balance check (~3 min)
-python scripts/run_power.py        # MDE, power curves, CI coverage (~10 min)
+python scripts/run_power.py        # MDE, power curves, CI coverage (~22 min)
 python scripts/run_cupac.py        # CUPAC predictions + A/A rerun (~4 min)
 python scripts/run_peeking.py      # peeking simulation (~4 min)
 python scripts/run_uplift.py       # T/X-learner, Qini, planted-effect check (~1-2 min)

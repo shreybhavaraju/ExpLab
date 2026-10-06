@@ -1,11 +1,11 @@
 # Power and MDE on the real data:
 #   - MDE (absolute and relative to the control mean) at the actual arm sizes, for all 3 metrics
 #   - simulated power curves for visit and conversion (resampled control users with a known
-#     lift injected, 200 runs per point) next to the normal approximation
+#     lift injected, 1,000 runs per point) next to the normal approximation
 #   - CI coverage validation: inject a 5% lift, 1,000 runs at full arm sizes, the diff and lift
 #     CIs have to cover it 93.5%..96.5% of the time (validation/pass_conditions.md)
 # Writes results/power.json and figures/power_curves.png.
-# python scripts/run_power.py   (~8 min, every run draws an 11.9M-user treatment arm)
+# python scripts/run_power.py   (~22 min, every run draws an 11.9M-user treatment arm)
 
 import json
 import time
@@ -25,7 +25,7 @@ CURVES = {
     'visit_rate': ('visit', np.linspace(0, 0.025, 9)),
     'conversion_rate': ('conversion', np.linspace(0, 0.10, 9)),
 }
-N_SIMS_POWER = 200
+N_SIMS_POWER = 1000
 N_SIMS_COVERAGE = 1000
 COVERAGE_LIFT = 0.05
 COVERAGE_BAND = (0.935, 0.965)
