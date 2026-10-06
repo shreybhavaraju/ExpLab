@@ -1,10 +1,11 @@
 # CUPAC on the real data. Criteo has no pre-period metric, so each metric's covariate is an
-# out-of-fold LightGBM prediction of it from f0..f11 (see explab/variance.py).
+# out-of-fold LightGBM prediction of it from f0..f11, trained on control users only
+# (see explab/variance.py).
 #   - raw vs CUPAC readout for visit and conversion: diff, lift, CI widths, var reduction
 #   - balance check: mean prediction in treatment vs control, should be ~0 in a clean test
 #   - the A/A test on the control group again, with the adjustment on
 # Writes data/cupac_preds.parquet, results/cupac.json and figures/cupac_ci.png.
-# python scripts/run_cupac.py   (~5 min on an M4: ~2 min of LightGBM fits, ~2 min of A/A splits)
+# python scripts/run_cupac.py   (~4 min on an M4: ~1.5 min of LightGBM fits, ~2 min of A/A splits)
 
 import json
 import time
@@ -35,11 +36,13 @@ def load(con):
     return X, data['treatment'] == 1, {m: data[m] for m in METRICS}
 
 
-def fit_predictions(X, ys):
+def fit_predictions(X, ys, t):
+    # models learn from control users only. the treatment share depends on the features here,
+    # so a model fit on both arms would partly learn the treatment effect (see variance.py)
     preds = {}
     for m, y in ys.items():
         start = time.time()
-        preds[m] = oof_predictions(X, y)
+        preds[m] = oof_predictions(X, y, train_on=~t)
         print(f'oof {m}: {time.time() - start:.0f}s')
     return preds
 
@@ -129,7 +132,7 @@ def main():
     start = time.time()
     X, t, ys = load(connect())
     print(f'loaded {len(t):,} rows: {time.time() - start:.0f}s')
-    preds = fit_predictions(X, ys)
+    preds = fit_predictions(X, ys, t)
     del X
     # float32 is plenty for a saved probability and halves the file. the in-memory copy stays
     # float64, a float32 mean over 12M rows is only good to ~1e-6

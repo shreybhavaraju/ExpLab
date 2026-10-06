@@ -155,3 +155,25 @@ def test_cuped_from_sums_matches_arrays():
     assert compare(*est)['diff'].value == pytest.approx(r['diff'].value, abs=1e-12)
     assert compare(*est)['diff'].se == pytest.approx(r['diff'].se, rel=1e-9)
     assert compare(*est)['lift'].value == pytest.approx(r['lift'].value, abs=1e-12)
+
+
+def test_control_only_model_when_assignment_depends_on_features():
+    # treatment share depends on x and so does the effect. a model fit on both arms learns part
+    # of the effect (more treated users where the effect is big), so the covariate is less
+    # balanced and the adjustment eats a big chunk of the effect. a control-only model just
+    # predicts "visits without treatment" and lands much closer to the truth
+    rng = np.random.default_rng(12)
+    n = 60_000
+    X = rng.normal(size=(n, 2)).astype(np.float32)
+    big = X[:, 0] > 0
+    t = rng.random(n) < np.where(big, 0.95, 0.75)
+    base = np.where(big, 0.2, 0.05)
+    effect = np.where(big, 0.1, 0.0)
+    y = (rng.random(n) < base + effect * t).astype(np.int8)
+    truth = effect[t].mean()  # effect on the treated users, ~0.056 here
+
+    pooled = cuped_readout(y, oof_predictions(X, y, params=TINY), t)['diff'].value
+    control = cuped_readout(y, oof_predictions(X, y, params=TINY, train_on=~t), t)['diff'].value
+    # over 3 seeds: pooled ~0.022, control-only 0.040 to 0.051
+    assert pooled < truth - 0.02
+    assert abs(control - truth) < abs(pooled - truth)

@@ -16,7 +16,8 @@ LGB_PARAMS = {
 }
 
 
-def oof_predictions(X, y, n_folds=5, max_train_rows=2_000_000, seed=0, params=None):
+def oof_predictions(X, y, n_folds=5, max_train_rows=2_000_000, seed=0, params=None,
+                    train_on=None):
     """Out-of-fold P(y = 1 | features) from LightGBM, to use as the CUPAC covariate.
 
     Each fold's model is trained on the other folds and only predicts the held-out one, so
@@ -24,6 +25,12 @@ def oof_predictions(X, y, n_folds=5, max_train_rows=2_000_000, seed=0, params=No
     on treatment, so the covariate would end up correlated with treatment. The adjustment
     would then subtract part of the real effect and fake a variance reduction.
     X should be the pre-treatment features only, never the treatment flag.
+
+    train_on is an optional bool mask of the rows the models may learn from (everyone still
+    gets a prediction). Passing the control group makes the covariate "what this user would
+    do without treatment". In a clean experiment it doesn't matter, but when the treatment
+    share depends on the features (Criteo), a model fit on both arms partly learns the
+    treatment effect and the adjustment would subtract some of it.
     """
     # imported here so the app (which only needs the adjustment) doesn't need lightgbm
     from lightgbm import LGBMClassifier
@@ -34,6 +41,8 @@ def oof_predictions(X, y, n_folds=5, max_train_rows=2_000_000, seed=0, params=No
     X, y = np.asarray(X), np.asarray(y)
     preds = np.empty(len(y))
     for train, test in KFold(n_folds, shuffle=True, random_state=seed).split(X):
+        if train_on is not None:
+            train = train[train_on[train]]
         # the full data has ~11M training rows per fold, 2M is plenty for 12 features and
         # keeps each fit to ~10s
         if len(train) > max_train_rows:
