@@ -35,9 +35,13 @@ def download(force=False):
         return CSV_PATH
     DATA_DIR.mkdir(exist_ok=True)
     print(f'downloading {URL} (~311MB)')
-    urllib.request.urlretrieve(URL, CSV_PATH)
-    if sha256(CSV_PATH) != SHA256:
-        raise ValueError('checksum mismatch, delete the file and try again')
+    # download under a temp name so a half-finished download never looks like the real file
+    tmp = CSV_PATH.with_suffix('.part')
+    urllib.request.urlretrieve(URL, tmp)
+    if sha256(tmp) != SHA256:
+        tmp.unlink()
+        raise ValueError('checksum mismatch, try again')
+    tmp.rename(CSV_PATH)
     return CSV_PATH
 
 
