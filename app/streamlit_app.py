@@ -70,9 +70,8 @@ r = metric_report(sub, metric, min_effect, cupac=cupac)
 res, dec = r['readout'], r['decision']
 
 st.title('ExpLab')
-st.caption('Readout engine for the Criteo uplift experiment (13.98M users, 85/15 split). '
-           "It returns SHIP, DON'T SHIP or INCONCLUSIVE, and refuses to call it when the data "
-           "can't support a call.")
+st.caption("Readout for the Criteo uplift experiment (13.98M users, 85/15 split): SHIP, DON'T "
+           'SHIP or INCONCLUSIVE, with the reasons.')
 
 tabs = st.tabs(['Readout', "How it's validated", 'Who responds'])
 tab_readout, tab_validation, tab_uplift = tabs
@@ -111,7 +110,7 @@ with tab_readout:
         shares = f"share {min(b['shares']):.1%} to {max(b['shares']):.1%}"
         detail = f"{shares}, {fmt_p(b['p_value'])}"
         rows.append((f'balance across {f} bins', detail, b['passed']))
-    rows.append(('power', f"MDE {pct(r['mde_rel'], 1)} vs {min_effect:.0%} that matters",
+    rows.append(('power', f"MDE {pct(r['mde_rel'])} vs {min_effect:.2%} that matters",
                  r['mde_rel'] <= min_effect))
     g_name, g = r['guardrail']
     rows.append((f'guardrail: {g_name}', f'{g.value:+.1%} {ci(g)}', g.ci_high >= 0))
@@ -121,7 +120,8 @@ with tab_readout:
 
     if 'bayes' in r:
         bz = r['bayes']
-        st.markdown('**Bayesian view** (flat Beta(1, 1) priors)')
+        note = ', raw counts, not CUPAC adjusted' if cupac else ''
+        st.markdown(f'**Bayesian view** (flat Beta(1, 1) priors{note})')
         b1, b2 = st.columns(2)
         prob = bz['prob_better']
         b1.metric('P(treatment is better)', '> 99.9%' if prob > 0.999 else f'{prob:.1%}')
@@ -131,8 +131,8 @@ with tab_readout:
     if feature == 'all users':
         st.info('The overall readout is blocked by the balance check: the treatment share drifts '
                 'from 84.6% to 87.7% across feature deciles even though the total is exactly 85%. '
-                'Most segments fail it too. One that passes is f0 bin 5, where visits are '
-                'underpowered at 5% until you turn CUPAC on.')
+                'Most segments fail it or the SRM check. The only one that passes both is f0 '
+                'bin 5: try visits there with CUPAC off and on.')
 
 with tab_validation:
     st.markdown('Every method is checked on a case where the right answer is known. The pass '

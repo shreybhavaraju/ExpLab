@@ -3,11 +3,11 @@
 #     (each model capped at 3M training rows), Qini / AUUC / policy numbers on the held-out 30%
 #   - semi-synthetic check: real features, fake outcomes with a +3pt visit effect planted only in
 #     the bottom 20% of f8, to see if both learners find it
-# Writes results/uplift.json and figures/qini.png. Takes ~3 min on the M4 (most of it
+# Writes results/uplift.json and figures/qini.png. Takes ~1-2 min on the M4 (most of it
 # is the six LightGBM fits on up to 3M rows).
 #
 # The treatment share drifts across feature deciles (84.6% to 87.7%), so the raw treated vs
-# control gap is partly imbalance, not the ad (1.03pp raw vs ~0.74pp stratified). Qini scores
+# control gap is partly imbalance, not the ad (1.03pp raw vs ~0.80pp stratified). Qini scores
 # every group the model picks with that same raw comparison, so the incremental visits and Qini
 # numbers on the real data are a bit optimistic. The semi-synthetic check uses a fresh 85/15
 # assignment, so it doesn't have this problem.
