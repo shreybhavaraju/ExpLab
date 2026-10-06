@@ -1,3 +1,5 @@
+import numpy as np
+
 from explab.decide import DONT_SHIP, INCONCLUSIVE, SHIP, decide
 from explab.readout import Estimate
 
@@ -35,10 +37,25 @@ def test_imbalance_blocks():
     assert len(d.reasons) == 1 and 'f2 bins' in d.reasons[0] and 'confounded' in d.reasons[0]
 
 
-def test_underpowered_blocks():
-    d = decide(UP, GOOD_SRM, mde_rel=0.12, min_effect=0.05)
+def test_underpowered_null_blocks():
+    d = decide(FLAT, GOOD_SRM, mde_rel=0.12, min_effect=0.05)
     assert d.verdict == INCONCLUSIVE
     assert 'underpowered' in d.reasons[0]
+
+
+def test_significant_but_underpowered_still_gets_a_verdict():
+    # CI is far above zero, low power doesn't make that go away, but it gets a warning
+    d = decide(UP, GOOD_SRM, mde_rel=0.12, min_effect=0.05)
+    assert d.verdict == SHIP
+    assert 'underpowered' in d.reasons[-1]
+
+
+def test_undefined_lift_blocks():
+    # e.g. a slice with no conversions in control -> lift is inf / nan
+    nan = Estimate(np.inf, np.nan, np.nan, np.nan, np.nan)
+    d = decide(nan, GOOD_SRM, mde_rel=np.nan)
+    assert d.verdict == INCONCLUSIVE
+    assert 'undefined' in d.reasons[0]
 
 
 def test_ci_with_harm_and_benefit_blocks():
