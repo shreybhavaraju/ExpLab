@@ -2,9 +2,9 @@
 
 [![tests](https://github.com/shreybhavaraju/ExpLab/actions/workflows/ci.yml/badge.svg)](https://github.com/shreybhavaraju/ExpLab/actions/workflows/ci.yml)
 
-ExpLab is an experiment readout engine. It takes a randomized experiment and returns **SHIP**, **DON'T SHIP** or **INCONCLUSIVE** with the reasons, and it refuses to give a verdict when the data can't support one: when the split doesn't match the design (SRM), when the arms already differ before treatment, when the primary metric is underpowered, or when the CI covers both a meaningful gain and a meaningful loss. It runs on the [Criteo uplift dataset](https://huggingface.co/datasets/criteo/criteo-uplift), a real randomized ad experiment with 13.98M users. Metrics are defined once in a DuckDB SQL layer, the statistics are written from scratch with NumPy/SciPy and checked against statsmodels / SciPy / scikit-uplift in the tests, and every method is validated against a simulation where the right answer is known.
+ExpLab is an experiment readout engine. It takes a randomized experiment and returns **SHIP**, **DON'T SHIP** or **INCONCLUSIVE** with the reasons, and it refuses to give a verdict when the data can't support one: when the split doesn't match the design (SRM), when the arms already differ before treatment, when a non-significant result comes from an underpowered test, or when the CI covers both a meaningful gain and a meaningful loss. It runs on the [Criteo uplift dataset](https://huggingface.co/datasets/criteo/criteo-uplift), a real randomized ad experiment with 13.98M users. Metrics are defined once in a DuckDB SQL layer, the statistics are written from scratch with NumPy/SciPy and checked against statsmodels / SciPy / scikit-uplift in the tests, and every method is validated against a simulation where the right answer is known.
 
-Run the app locally with `streamlit run app/streamlit_app.py`: pick a metric and a segment and you get the readout, the trust checks and the verdict.
+**[Live app](https://explab-b3slqtd3tbyyxvqbzqsawz.streamlit.app/)** (or `streamlit run app/streamlit_app.py` locally). Pick a metric and a segment and you get the readout, the trust checks and the verdict.
 
 ## The verdict
 
